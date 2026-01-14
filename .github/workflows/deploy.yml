@@ -16,8 +16,20 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      - name: Install Playwright
+        # Necessario per "stampare" le slide in PDF sui server GitHub
+        run: npx playwright install chromium --with-deps
+
+      - name: Export PDF
+        # Esegue il comando "slidev export" definito nel tuo package.json
+        run: npm run export
+
       - name: Build
         run: npm run build -- --base /presentazione-num-mod/
+
+      - name: Move PDF to dist
+        # Copia il PDF nella cartella che verrà pubblicata online
+        run: cp slides-export.pdf dist/
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
