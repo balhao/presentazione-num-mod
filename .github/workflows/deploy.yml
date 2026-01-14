@@ -7,31 +7,36 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 20
 
       - name: Install Dependencies
+        # Installa i pacchetti definiti nel tuo package.json, incluso playwright-chromium
         run: npm install
 
-      - name: Install Playwright
-        # Aggiungiamo 'sudo' per assicurarci che installi le librerie di sistema mancanti
+      - name: Install Playwright Browsers
+        # Installa Chromium e le librerie di sistema necessarie per far girare il browser su Linux
         run: npx playwright install chromium --with-deps
 
       - name: Export PDF
-        # Esegue il comando "slidev export" definito nel tuo package.json
+        # Genera il file slides-export.pdf
         run: npm run export
 
       - name: Build
+        # Compila il sito statico per GitHub Pages
         run: npm run build -- --base /presentazione-num-mod/
 
       - name: Move PDF to dist
-        # Copia il PDF nella cartella che verrà pubblicata online
+        # Sposta il PDF nella cartella dist in modo che sia accessibile via link
         run: cp slides-export.pdf dist/
 
       - name: Deploy
+        # Pubblica il contenuto della cartella dist sul branch gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
