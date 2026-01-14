@@ -24,6 +24,12 @@ mdc: true
 duration: 35min
 ---
 
+
+<a href="./slides-export.pdf" download class="px-3 py-1 rounded border(white opacity-20) hover:bg-white/10 transition">
+  📥 Scarica PDF
+</a>
+
+
 <!--
 The last comment block of each slide will be treated as slide notes. It will be visible and editable in Presenter Mode along with the slide. [Read more in the docs](https://sli.dev/guide/syntax.html#notes)
 -->
