@@ -17,7 +17,7 @@ jobs:
         run: npm install
 
       - name: Install Playwright
-        # Necessario per "stampare" le slide in PDF sui server GitHub
+        # Aggiungiamo 'sudo' per assicurarci che installi le librerie di sistema mancanti
         run: npx playwright install chromium --with-deps
 
       - name: Export PDF
