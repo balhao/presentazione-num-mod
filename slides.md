@@ -22,6 +22,18 @@ transition: slide-left
 mdc: true
 # duration of the presentation
 duration: 35min
+
+
+<style>
+@media print {
+  .slidev-layout {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+}
+</style>
+
 ---
 
 
