@@ -5,35 +5,28 @@ theme: seriph
 # like them? see https://unsplash.com/collections/94734566/slidev
 background: https://cover.sli.dev
 # some information about your slides (markdown enabled)
-title: Welcome to Slidev
+title: Numerical methods to solve differential equations
 info: |
-  ## Slidev Starter Template
-  Presentation slides for developers.
-
-  Learn more at [Sli.dev](https://sli.dev)
+  ## Beggining slides to introduce numerical methods.
 # apply UnoCSS classes to the current slide
 class: text-center
 # https://sli.dev/features/drawing
 drawings:
   persist: false
 # slide transition: https://sli.dev/guide/animations.html#slide-transitions
-transition: slide-left
+#transition: slide-left
 # enable MDC Syntax: https://sli.dev/features/mdc
 mdc: true
 # duration of the presentation
 duration: 35min
-
-
-<style>
-@media print {
-  .slidev-layout {
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-    color-adjust: exact !important;
-  }
-}
-</style>
-
+# The following specific were added to try a different layout
+layout: cover #Il layout cover è pensato per la slide del titolo
+transition: none #Il cambio è istantaneo, senza animazioni
+colorSchema: light
+# Newsreader, Inter, Roboto
+fonts:
+  sans: Newsreader
+  serif: Newsreader
 ---
 
 
@@ -44,13 +37,14 @@ The last comment block of each slide will be treated as slide notes. It will be 
 -->
 
 
+
+
 <RestartOnEnter><LorenzBackground /></RestartOnEnter>
 
 
 <!--
 Here is another comment.
 -->
-
 
 # Numerical methods to solve differential equations
 
@@ -63,6 +57,53 @@ Here is another comment.
   <a href="./slides-export.pdf" download class="px-3 py-1 rounded border border-white/20 hover:bg-white/10 transition no-underline">
     📥 Download PDF
   </a>
+</div>
+
+
+---
+
+# Outline
+
+<RestartOnEnter><SpirographBackground /></RestartOnEnter>
+
+<div class="flex flex-col gap-3 mt-6">
+
+<div class="px-4 py-2 rounded-lg bg-blue-50 border border-blue-200 text-blue-900">
+<span class="font-bold mr-2">1.</span> Introduction and Discretization
+</div>
+
+
+<div class="px-4 py-2 rounded-lg bg-blue-50 border border-blue-200 text-blue-900">
+<span class="font-bold mr-2">2.</span> Runge-Kutta Methods
+</div>
+
+<div class="px-4 py-2 rounded-lg bg-blue-50 border border-blue-200 text-blue-900">
+<span class="font-bold mr-2">3.</span> Linear Multistep Methods
+</div>
+
+
+<div class="px-4 py-2 rounded-lg bg-blue-50 border border-blue-200 text-blue-900">
+<span class="font-bold mr-2">4.</span> Backwar Differentiation Formula (BDF)
+</div>
+
+<div class="px-4 py-2 rounded-lg bg-teal-50 border border-teal-200 text-teal-900">
+<span class="font-bold mr-2">5.</span> Spatial Temporal Discretization
+</div>
+
+
+<div class="px-4 py-2 rounded-lg bg-teal-50 border border-teal-200 text-teal-900">
+<span class="font-bold mr-2">6.</span> Direction of Propagation in the Transport Equation
+</div>
+
+
+<div class="px-4 py-2 rounded-lg bg-teal-50 border border-teal-200 text-teal-900">
+<span class="font-bold mr-2">7.</span> Stability of the Solution and CFL codition
+</div>
+
+<div class="px-4 py-2 rounded-lg bg-teal-50 border border-teal-200 text-teal-900">
+<span class="font-bold mr-2">8.</span> Boundary Conditions
+</div>
+
 </div>
 
 
@@ -296,24 +337,24 @@ Because I evaluate the derivative at endpoints of interest interval $[t_n; t_{n+
 
 <div class="grid grid-cols-2 gap-4 mt-1">
   
-  <div class="bg-indigo-800 border border-yellow-200 rounded-lg px-4 py-3 w-84 h-20 flex items-center justify-between">
-    <span class="text-white">
+  <div class="bg-indigo-800/20 border border-yellow-200 rounded-lg px-4 py-3 w-84 h-20 flex items-center justify-between">
+    <span >
 
   $$v^{n+1} = v^n + k \cdot f^n$$
 
   </span>
-    <div class="text-yellow-200 text-xs font-bold ml-4 border-l border-yellow-200/30 pl-4">
+    <div class="text-gray-600 text-xs font-bold ml-4 border-l border-yellow-200/80 pl-4">
       Explicit Euler
     </div>
   </div>
 
-  <div class="bg-red-800 border border-yellow-200 rounded-lg px-4 py-3 w-84 h-20 flex items-center justify-between">
-    <span class="text-white">
+  <div class="bg-red-800/20 border border-yellow-200 rounded-lg px-4 py-3 w-84 h-20 flex items-center justify-between">
+    <span>
 
   $$v^{n+1} = v^n + k \cdot f^{n+1}$$
 
   </span>
-    <div class="text-yellow-200 text-xs font-bold ml-4 border-l border-yellow-200/30 pl-4">
+    <div class="text-gray-600 text-xs font-bold ml-4 border-l border-yellow-200/80 pl-4">
       Implicit Euler
     </div>
   </div>
@@ -327,7 +368,7 @@ Because I evaluate the derivative at endpoints of interest interval $[t_n; t_{n+
  
 
 
-<div v-click="4" class="absolute top-50 right-10 w-45 text-xs leading-tight text-gray-400 border-l-2 border-yellow-400 pl-4">
+<div v-click="4" class="absolute top-50 right-10 w-45 text-xs leading-tight text-gray-500 border-l-2 border-yellow-400 pl-4">
 
 **Implicit** because the $f^{n+1}$ term contains $v^{n+1}$, a value that already appears at the first member.
 
@@ -356,13 +397,13 @@ $$
   
   <div class="text-3xl text-yellow-400 mr-8">→</div>
 
-  <div class="bg-indigo-800 border border-yellow-200 rounded-lg px-4 py-3 w-100 h-20 flex items-center justify-between">
-    <span class="text-white">
+  <div class="bg-indigo-800/20 border border-yellow-200 rounded-lg px-4 py-3 w-100 h-20 flex items-center justify-between">
+    <span>
 
   $$v^{n+1} = v^{n-1} +2k \cdot f^n $$
 
   </span>
-    <div class="text-yellow-200 text-xs font-bold ml-4 border-l border-yellow-200/30 pl-4">
+    <div class="text-gray-600 text-xs font-bold ml-4 border-l border-yellow-200/80 pl-4">
       Central Value
     </div>
   </div>
@@ -399,13 +440,13 @@ $$
   
   <div class="text-3xl text-yellow-400 mr-8">→</div>
 
-  <div class="bg-red-800 border border-yellow-200 rounded-lg px-4 py-3 w-100 h-20 flex items-center justify-between">
-    <span class="text-white">
+  <div class="bg-red-800/20 border border-yellow-200 rounded-lg px-4 py-3 w-100 h-20 flex items-center justify-between">
+    <span>
 
   $$v^{n+1}  = v^n +\frac{k}{2}\left(f^n + f^{n+1} \right) $$
 
   </span>
-    <div class="text-yellow-200 text-xs font-bold ml-4 border-l border-yellow-200/30 pl-4">
+    <div class="text-gray-600-200 text-xs font-bold ml-4 border-l border-yellow-200/80 pl-4">
       Trapezium
     </div>
   </div>
@@ -413,7 +454,7 @@ $$
 </div>
 
 
-<div v-click="6" class="absolute top-50 right-10 w-45 text-xs leading-tight text-gray-400 border-l-2 border-yellow-400 pl-4">
+<div v-click="6" class="absolute top-50 right-10 w-45 text-xs leading-tight text-gray-500 border-l-2 border-yellow-400 pl-4">
 
 Taking the central value I cannot apply the formula to evaluate $v^1$: I have to use Euler for that.
 
@@ -453,10 +494,10 @@ whose analytical solution is $u = u_0 \cdot e^t$.
 
 </div>
 
-<div v-click="2" class="bg-gray-800 border border-yellow-200 rounded-lg px-6 py-4 flex items-center justify-between mt-4">
+<div v-click="2" class="bg-gray-800/20 border border-yellow-200 rounded-lg px-6 py-4 flex items-center justify-between mt-4">
 
  
-  <div class="text-white text-sm flex-grow">
+  <div class="text-sm flex-grow">
 
   <div v-click="3" class="mb-2">
 
@@ -476,25 +517,31 @@ whose analytical solution is $u = u_0 \cdot e^t$.
 
   </div>
 
-  <div v-click="6" class="font-bold text-yellow-100">
+     
+  <div v-click="6" class="font-bold">
+    <span v-mark.circle.yellow="4">
 
   $$[n] \quad v^n = u_0(1+k)^n$$
 
-  </div>
+  </span>
 
   </div>
 
-  <div class="text-yellow-200 text-xs font-bold ml-6 border-l border-yellow-200/30 pl-6 w-48 flex-shrink-0">
+
+
+  </div>
+
+  <div class="text-gray-500 text-xs font-bold ml-6 border-l border-yellow-200/80 pl-6 w-48 flex-shrink-0">
 
   RECURSIVE STEP
 
-  <div class="mt-2 text-white font-mono bg-gray-900 p-2 rounded border border-gray-700">
+  <div class="mt-2 font-mono bg-gray-200 p-2 rounded border border-gray-700">
 
   $$v^{n+1} = v^n + k f^n$$
 
   </div>
 
-  <div class="mt-1 text-gray-400 italic font-normal">Explicit Euler</div>
+  <div class="mt-1 text-gray-500 italic font-normal">Explicit Euler</div>
 
   </div>
 
@@ -511,9 +558,9 @@ whose analytical solution is $u = u_0 \cdot e^t$.
 <div grid="~ cols-1 gap-1 mt-1">
 
   
-<div v-click="1" class="bg-gray-800 border border-yellow-200 rounded-lg px-6 py-4 flex items-center justify-between mt-4">
+<div v-click="1" class="bg-gray-800/20 border border-yellow-200 rounded-lg px-6 py-4 flex items-center justify-between mt-4">
 
-  <div class="text-white text-sm flex-grow">
+  <div class="text-sm flex-grow">
 
   <div v-click="2" class="mb-2">
 
@@ -533,23 +580,27 @@ whose analytical solution is $u = u_0 \cdot e^t$.
 
   </div>
 
-  <div v-click="5" class="font-bold text-yellow-100">
+  <div v-click="5" class="font-bold ">
+
+  <span v-mark.circle.yellow="4">
 
   $$[n] \quad v^n = u_0(1-k)^{-n}$$
 
-  </div>
+  </span>
 
   </div>
 
-  <div class="text-yellow-200 text-xs font-bold ml-6 border-l border-yellow-200/30 pl-6 w-48 flex-shrink-0">
+  </div>
+
+  <div class="text-gray-500 text-xs font-bold ml-6 border-l border-yellow-200/80 pl-6 w-48 flex-shrink-0">
     RECURSIVE STEP
-    <div class="mt-2 text-white font-mono bg-gray-900 p-2 rounded border border-gray-700">
+    <div class="mt-2 font-mono bg-gray-200 p-2 rounded border border-gray-700">
 
   $$v^{n+1} = v^n + k f^{n+1}$$
 
   </div>
 
-  <div class="mt-1 text-gray-400 italic font-normal">Implicit Euler</div>
+  <div class="mt-1 text-gray-500 italic font-normal">Implicit Euler</div>
 
   </div>
 
@@ -563,9 +614,9 @@ whose analytical solution is $u = u_0 \cdot e^t$.
 
 <div grid="~ cols-1 gap-1 mt-1">
 
-<div v-click="1" class="bg-gray-800 border border-yellow-200 rounded-lg px-6 py-4 flex items-center justify-between mt-4">
+<div v-click="1" class="bg-gray-800/20 border border-yellow-200 rounded-lg px-6 py-4 flex items-center justify-between mt-4">
 
-  <div class="text-white text-sm flex-grow">
+  <div class="text-sm flex-grow">
 
   <div v-click="2" class="mb-2">
 
@@ -585,22 +636,28 @@ whose analytical solution is $u = u_0 \cdot e^t$.
     
   </div>
 
-  <div v-click="5" class="font-bold text-yellow-100">
+  <div v-click="5" class="font-bold ">
       
+
+  <span v-mark.circle.yellow="4">
+
   $$[n] \quad v^n = u_0 \left( \frac{1+k/2}{1-k/2} \right)^n$$
+
+  </span>
+  
   
   </div>
 
   </div>
 
-  <div class="text-yellow-200 text-xs font-bold ml-6 border-l border-yellow-200/30 pl-6 w-52 flex-shrink-0">
+  <div class="text-gray-500 text-xs font-bold ml-6 border-l border-yellow-200/80 pl-6 w-52 flex-shrink-0">
     RECURSIVE STEP
-    <div class="mt-2 text-white font-mono bg-gray-900 p-2 rounded border border-gray-700">
+    <div class="mt-2 font-mono bg-gray-200 p-2 rounded border border-gray-700">
 
   $$v^{n+1} = v^n + \frac{k}{2}(f^n + f^{n+1})$$
 
   </div>
-  <div class="mt-1 text-gray-400 italic font-normal">Trapezium Method</div>
+  <div class="mt-1 text-gray-500 italic font-normal">Trapezium Method</div>
   </div>
 
 </div>
@@ -616,9 +673,9 @@ Now let's try to understand which of the outlined methods better approximate the
 
 <div grid="~ cols-1 gap-1 mt-1">
 
-<div v-click="1" class="bg-gray-800 border border-yellow-200 rounded-lg px-6 py-4 flex items-center justify-between mt-4">
+<div v-click="1" class="bg-gray-800/20 border border-yellow-200 rounded-lg px-6 py-4 flex items-center justify-between mt-4">
 
-<div class="text-white text-sm flex-grow">
+<div class="text-sm flex-grow">
 
 <div v-click="2" class="mb-3">
 <span class="text-gray-400 mr-2">Explicit:</span>
@@ -634,27 +691,27 @@ $$ \frac{v^1}{u_0} = \frac{1}{1-k} \approx 1 + k + k^2 + k^3 + \dots $$
 
 </div>
 
-<div v-click="4" class="font-bold text-yellow-100">
-<span class="text-yellow-200/50 mr-2 text-sm font-normal">Trapezium:</span>
+<div v-click="4" class="font-bold">
+<span class=" text-gray-400 mr-2 text-sm font-normal">Trapezium:</span>
 
 $$ \frac{v^1}{u_0} = \frac{1+k/2}{1-k/2} \approx 1 + k + \frac{k^2}{2} + \frac{k^3}{4} + \dots $$
 
 </div>
 
-<div v-click="5" class="mt-4 pt-2 border-t border-gray-700 italic text-xs text-gray-300">
+<div v-click="5" class="mt-4 pt-2 border-t border-gray-700 italic text-xs text-gray-800">
 The trapezium method offers the best approximation, exact until the third term (second order in k). [The above formulas are obtained using Taylor expansions]
 </div>
 
 </div>
 
-<div class="text-yellow-200 text-xs font-bold ml-6 border-l border-yellow-200/30 pl-6 w-56 flex-shrink-0">
+<div class="text-gray-500 text-xs font-bold ml-6 border-l border-yellow-200/80 pl-6 w-56 flex-shrink-0">
 ANALYTICAL SOLUTION
-<div class="mt-2 text-white font-mono bg-gray-900 p-2 rounded border border-gray-700">
+<div class="mt-2 font-mono bg-gray-200 p-2 rounded border border-gray-700">
 
 $$ \frac{u(t_1)}{u_0} = e^k $$
 
 </div>
-<div class="mt-1 text-gray-400 italic font-normal">
+<div class="mt-1 text-gray-500 italic font-normal">
 
 $$ 1 + k + \frac{k^2}{2} + \dots + \frac{k^m}{m!} $$
 
@@ -671,47 +728,47 @@ $$ 1 + k + \frac{k^2}{2} + \dots + \frac{k^m}{m!} $$
 Up to now, we have limited ourselves to evaluating the function only at the limits of each time step.  
 Now, given a time interval $[t_n, t_{n+1}]$, the idea is to also evaluate the function at intermediate points within this interval to improve accuracy.
 
-<div v-click="1" class="bg-gray-800 border border-yellow-200 rounded-lg px-6 py-4 flex items-center justify-between mt-4">
+<div v-click="1" class="bg-gray-800/20 border border-yellow-200 rounded-lg px-6 py-4 flex items-center justify-between mt-4">
 
-<div class="text-white text-sm flex-grow">
+<div class="text-sm flex-grow">
 
 <div v-click="2" class="mb-3">
-<span class="text-gray-400 mr-2 text-xs">STEP 1: Intermediate Value (Euler)</span>
+<span class="text-gray-500 mr-2 text-xs">STEP 1: Intermediate Value (Euler)</span>
 
 $$ \tilde{v}^{n+\frac{1}{2}} = v^n + \frac{k}{2} f^n $$
 
 </div>
 
 <div v-click="3" class="mb-3">
-<span class="text-gray-400 mr-2 text-xs">STEP 2: Evaluation</span>
+<span class="text-gray-500 mr-2 text-xs">STEP 2: Evaluation</span>
 
 $$ \tilde{f}^{n+\frac{1}{2}} = f(\tilde{v}^{n+\frac{1}{2}}, t_{n+\frac{1}{2}}) $$
 
 </div>
 
-<div v-click="4" class="font-bold text-yellow-100">
-<span class="text-yellow-200/50 mr-2 text-sm font-normal">FINAL STEP:</span>
+<div v-click="4" class="font-bold ">
+<span class="text-gray-500 mr-2 text-sm font-normal">FINAL STEP:</span>
 
 $$ v^{n+1} = v^n + k \tilde{f}^{n+\frac{1}{2}} $$
 
 </div>
 
-<div v-click="5" class="mt-4 pt-2 border-t border-gray-700 italic text-xs text-gray-300">
+<div v-click="5" class="mt-4 pt-2 border-t border-gray-700 italic text-xs text-gray-600">
 The <b>Midpoint</b> method uses an intermediate estimate to improve the slope accuracy.
 </div>
 
 </div>
 
-<div class="text-yellow-200 text-xs font-bold ml-6 border-l border-yellow-200/30 pl-6 w-48 flex-shrink-0">
+<div class="text-gray-500 text-xs font-bold ml-6 border-l border-yellow-200/80 pl-6 w-48 flex-shrink-0">
 RECURSIVE STEP
 
-<div class="mt-2 text-white font-mono bg-gray-900 p-2 rounded border border-gray-700">
+<div class="mt-2 font-mono bg-gray-200 p-2 rounded border border-gray-700">
 
 $$ v^{n+1} = v^n + k f^{n+\frac{1}{2}} $$
 
 </div>
 
-<div class="mt-1 text-gray-400 italic font-normal">Runge-Kutta 2 (RK2)</div>
+<div class="mt-1 text-gray-500 italic font-normal">Runge-Kutta 2 (RK2)</div>
 </div>
 
 </div>
@@ -726,26 +783,26 @@ We consider two intermediate times within the interval $[t_n, t_{n+1}]$, namely 
 Starting from the known values $(t_n, v^n, f^n)$, 
 we can define intermediate estimates as follows:
 
-<div v-click="1" class="bg-gray-800 border border-yellow-200 rounded-lg px-6 py-2 flex items-center justify-between mt-4">
+<div v-click="1" class="bg-gray-800/20 border border-yellow-200 rounded-lg px-6 py-2 flex items-center justify-between mt-4">
 
-<div class="text-white text-sm flex-grow">
+<div class="text-sm flex-grow">
 
 <div v-click="2" class="mb-3">
-<span class="text-gray-400 mr-2 text-xs">[1] First Stage:</span>
+<span class="text-gray-500 mr-2 text-xs">[1] First Stage:</span>
 
 $$ \tilde{v}^{n+\frac{1}{3}} = v^n + \frac{k}{3} f^n, \quad \tilde{f}^{n+\frac{1}{3}} = f(\tilde{v}^{n+\frac{1}{3}}, t_{n+\frac{1}{3}}) $$
 
 </div>
 
 <div v-click="3" class="mb-3">
-<span class="text-gray-400 mr-2 text-xs">[2] Second Stage:</span>
+<span class="text-gray-500 mr-2 text-xs">[2] Second Stage:</span>
 
 $$ \tilde{v}^{n+\frac{2}{3}} = v^n + \frac{2k}{3} \tilde{f}^{n+\frac{1}{3}}, \quad \tilde{f}^{n+\frac{2}{3}} = f(\tilde{v}^{n+\frac{2}{3}}, t_{n+\frac{2}{3}}) $$
 
 </div>
 
-<div v-click="4" class="font-bold text-yellow-100">
-<span class="text-yellow-200/50 mr-2 text-sm font-normal">[3] Final Step:</span>
+<div v-click="4" class="font-bold">
+<span class="text-gray-500 mr-2 text-sm font-normal">[3] Final Step:</span>
 
 $$ v^{n+1} = v^n + \frac{k}{2} \left( \tilde{f}^{n+\frac{1}{3}} + \tilde{f}^{n+\frac{2}{3}} \right) $$
 
@@ -753,16 +810,16 @@ $$ v^{n+1} = v^n + \frac{k}{2} \left( \tilde{f}^{n+\frac{1}{3}} + \tilde{f}^{n+\
 
 </div>
 
-<div class="text-yellow-200 text-xs font-bold ml-6 border-l border-yellow-200/30 pl-6 w-48 flex-shrink-0">
+<div class="text-gray-500 text-xs font-bold ml-6 border-l border-yellow-200/80 pl-6 w-48 flex-shrink-0">
 MULTI-STAGE STEP
 
-<div class="mt-2 text-white font-mono bg-gray-900 p-2 rounded border border-gray-700">
+<div class="mt-2 font-mono bg-gray-200 p-2 rounded border border-gray-700">
 
 $$ v^{n+1} = v^n + \sum c_i f_i $$
 
 </div>
 
-<div class="mt-1 text-gray-400 italic font-normal">Runge-Kutta Variant</div>
+<div class="mt-1 text-gray-500 italic font-normal">Runge-Kutta Variant</div>
 </div>
 
 </div>
@@ -780,40 +837,40 @@ The idea is to divide the interval into intermediate times (in principle, we cou
 Starting from $c_1 = 0$, let $\alpha_{ij}$ denote the intermediate coefficients and $b_i$ the final weights.
 
 
-<div v-click="1" class="bg-gray-800 border border-yellow-200 rounded-lg px-6 py-2 flex items-center w-200 h-100 justify-between mt-4">
+<div v-click="1" class="bg-gray-800/20 border border-yellow-200 rounded-lg px-6 py-2 flex items-center w-200 h-100 justify-between mt-4">
 
-<div class="text-white text-sm flex-grow">
+<div class="text-sm flex-grow">
 
 <div v-click="2" class="mb-2">
-<span class="text-gray-400 mr-2 text-xs">[1]</span>
+<span class="text-gray-500 mr-2 text-xs">[1]</span>
 
 $$ \text{Known} \quad v^{n+c_1} \quad \text{and} \quad f^{n+c_1} = f(v^{n+c_1}, t_{n+c_1})$$
 
 </div>
 
 <div v-click="3" class="mb-2">
-<span class="text-gray-400 mr-2 text-xs">[2]</span>
+<span class="text-gray-500 mr-2 text-xs">[2]</span>
 
 $$ \tilde{v}^{n+c_2} = v^n + k\,\alpha_{21} f^{n+c_1}; \quad \tilde{f}^{n+c_2} = f(\tilde{v}^{n+c_2}, t_{n+c_2}) $$
 
 </div>
 
 <div v-click="4" class="mb-2">
-<span class="text-gray-400 mr-2 text-xs">[3]</span>
+<span class="text-gray-500 mr-2 text-xs">[3]</span>
 
 $$ \tilde{v}^{n+c_3} = v^n + k\left(\alpha_{31} f^{n+c_1} + \alpha_{32} f^{n+c_2}\right); \quad \tilde{f}^{n+c_3} = f(\tilde{v}^{n+c_3}, t_{n+c_3}) $$
 
 </div>
 
-<div v-click="5" class="mb-2 italic text-gray-400">
-<span class="text-gray-400 mr-2 text-xs">[s]</span>
+<div v-click="5" class="mb-2 italic">
+<span class="text-gray-500 mr-2 text-xs">[s]</span>
 
 $$ \tilde{v}^{n+c_s} = v^n + k\left(\alpha_{s1}f^{n+c_1} + \dots + \alpha_{s,s-1}f^{n+c_{s-1}}\right) $$
 
 </div>
 
-<div v-click="6" class="font-bold text-yellow-100 border-t border-gray-700 pt-2">
-<span class="text-yellow-200/50 mr-2 text-sm font-normal">[END]</span>
+<div v-click="6" class="font-bold  border-t border-gray-700 pt-2">
+<span class="text-gray-500 mr-2 text-sm font-normal">[END]</span>
 
 $$ v^{n+1} = v^n + k\sum_{i=1}^{s} b_i f^{n+c_i} $$
 
@@ -821,16 +878,16 @@ $$ v^{n+1} = v^n + k\sum_{i=1}^{s} b_i f^{n+c_i} $$
 
 </div>
 
-<div class="text-yellow-200 text-xs font-bold ml-6 border-l border-yellow-200/30 pl-6 w-48 flex-shrink-0">
+<div class="text-gray-500 text-xs font-bold ml-6 border-l border-yellow-200/80 pl-6 w-48 flex-shrink-0">
 BUTCHER TABLEAU
 
-<div class="mt-2 text-white font-mono bg-gray-900 p-2 rounded border border-gray-700">
+<div class="mt-2 font-mono bg-gray-200 p-2 rounded border border-gray-700">
 
 $$ \begin{array}{c|c} c & A \\ \hline & b^T \end{array} $$
 
 </div>
 
-<div class="mt-1 text-gray-400 italic font-normal">General RK Structure</div>
+<div class="mt-1 text-gray-500 italic font-normal">General RK Structure</div>
 </div>
 
 </div>
@@ -868,19 +925,19 @@ $b_i$: final weights
 
 # Runge–Kutta of Order 1 (Midpoint Method)
 
-<div v-click="1" class="bg-gray-800 border border-yellow-200 rounded-lg px-6 py-4 flex items-center justify-between mt-4">
+<div v-click="1" class="bg-gray-800/20 border border-yellow-200 rounded-lg px-6 py-4 flex items-center justify-between mt-4">
 
-<div class="text-white text-sm flex-grow">
+<div class="text-sm flex-grow">
 
 <div v-click="2" class="mb-3">
-<span class="text-gray-400 mr-2 text-xs">[1]</span>
+<span class="text-gray-500 mr-2 text-xs">[1]</span>
 
 $$ \tilde{v}^{n+\frac{1}{2}} = v^n + \frac{k}{2}f^n \quad \Rightarrow \quad \tilde{f}^{n+\frac{1}{2}} $$
 
 </div>
 
-<div v-click="3" class="font-bold text-yellow-100">
-<span class="text-yellow-200/50 mr-2 text-sm font-normal">[2]</span>
+<div v-click="3" class="font-bold">
+<span class="text-gray-500 mr-2 text-sm font-normal">[2]</span>
 
 $$ v^{n+1} = v^n + k\,\tilde{f}^{n+\frac{1}{2}} $$
 
@@ -888,10 +945,10 @@ $$ v^{n+1} = v^n + k\,\tilde{f}^{n+\frac{1}{2}} $$
 
 </div>
 
-<div v-click="4" class="text-yellow-200 text-xs font-bold ml-6 border-l border-yellow-200/30 pl-6 w-40 flex-shrink-0 text-center">
+<div v-click="4" class="text-gray-500 text-xs font-bold ml-6 border-l border-yellow-200/80 pl-6 w-40 flex-shrink-0 text-center">
 MIDPOINT (RK2)
 
-<div class="mt-2 text-white bg-gray-900 p-2 rounded border border-gray-700">
+<div class="mt-2 bg-gray-200 p-2 rounded border border-gray-700">
 
 $$
 \begin{array}{c|cc}
@@ -908,13 +965,13 @@ $$
 </div>
 
 <div v-click="5" class="mt-8 px-4">
-<p class="text-sm text-gray-300 italic mb-4">
+<p class="text-sm text-gray-800 italic mb-4">
 The simple Euler method can be viewed as a Runge–Kutta method of order zero, with matrix:
 </p>
 
 <div class="flex items-center space-x-8">
 
-<div class="bg-gray-800 border border-gray-600 rounded p-4">
+<div class="bg-gray-800/20 border border-gray-600 rounded p-4">
 
 $$
 \begin{array}{c|c}
@@ -929,7 +986,7 @@ $$
 
 <div class="text-2xl text-yellow-500 mt-2">→</div>
 
-<div class="bg-gray-900 border border-gray-700 rounded p-4 font-mono text-white">
+<div class="bg-gray-900/20 border border-gray-700 rounded p-4 font-mono">
 
 $$ v^{n+1} = v^n + k f^n $$
 
@@ -942,30 +999,30 @@ $$ v^{n+1} = v^n + k f^n $$
 
 # From Matrix to Implementation
 
-<div v-click="1" class="bg-gray-800 border border-yellow-200 rounded-lg px-6 py-4 flex items-center justify-between mt-4">
+<div v-click="1" class="bg-gray-800/20 border border-yellow-200 rounded-lg px-6 py-4 flex items-center justify-between mt-4">
 
-<div class="text-white text-sm flex-grow">
+<div class="text-sm flex-grow">
 
 <div v-click="2" class="mb-3">
-<span class="text-gray-400 mr-2 text-xs">[1]</span>
+<span class="text-gray-500 mr-2 text-xs">[1]</span>
 
 $$ \tilde{v}^{n+\frac{1}{3}} = v^n + \frac{k}{3} f^n \Rightarrow \tilde{f}^{n+\frac{1}{3}} $$
 
 </div>
 
 <div v-click="3" class="mb-3">
-<span class="text-gray-400 mr-2 text-xs">[2]</span>
+<span class="text-gray-500 mr-2 text-xs">[2]</span>
 
 $$ \tilde{v}^{n+\frac{2}{3}} = v^n + k\left(0\cdot f^n + \frac{2}{3}\tilde{f}^{n+\frac{1}{3}}\right) \Rightarrow \tilde{f}^{n+\frac{2}{3}} $$
 
 </div>
 
-<div v-click="4" class="font-bold text-yellow-100 border-t border-gray-700 pt-2">
-<span class="text-yellow-200/50 mr-2 text-sm font-normal">[END]</span>
+<div v-click="4" class="font-bold border-t border-gray-700 pt-2">
+<span class="text-gray-500 mr-2 text-sm font-normal">[END]</span>
 
 $$ v^{n+1} = v^n + \frac{k}{4} \left(f^n + 3 f^{n+\frac{2}{3}} \right) $$
 
-<div class="text-right text-xs italic text-gray-400 mt-1">
+<div class="text-right text-xs italic text-gray-500 mt-1">
 [Heun formula, 2nd order]
 </div>
 
@@ -973,10 +1030,10 @@ $$ v^{n+1} = v^n + \frac{k}{4} \left(f^n + 3 f^{n+\frac{2}{3}} \right) $$
 
 </div>
 
-<div class="text-yellow-200 text-xs font-bold ml-6 border-l border-yellow-200/30 pl-6 w-50 h-50 flex-shrink-0 text-center">
+<div class="text-gray-500 text-xs font-bold ml-6 border-l border-yellow-200/80 pl-6 w-50 h-50 flex-shrink-0 text-center">
 HEUN (RK3 VARIANT)
 
-<div class="mt-2 text-white bg-gray-900 p-2 rounded border border-gray-700">
+<div class="mt-2 bg-gray-200 p-2 rounded border border-gray-700">
 
 $$
 \begin{array}{c|ccc}
@@ -997,11 +1054,11 @@ $$
 
 # Application Example
 
-<div v-click="1" class="bg-gray-800 border border-yellow-200 rounded-lg px-6 py-4 flex items-center justify-between mt-4">
+<div v-click="1" class="bg-gray-800/20 border border-yellow-200 rounded-lg px-6 py-4 flex items-center justify-between mt-4">
 
-<div class="text-white text-sm flex-grow">
+<div class="text-sm flex-grow">
 
-<div v-click="2" class="mb-2 text-gray-400">
+<div v-click="2" class="mb-2 text-gray-500">
 <span class="mr-2 text-xs">(1)</span>
 
 $$\text{Initial state:} \quad t_n, v^n, f^n$$
@@ -1009,14 +1066,14 @@ $$\text{Initial state:} \quad t_n, v^n, f^n$$
 </div>
 
 <div v-click="3" class="mb-3">
-<span class="text-gray-400 mr-2 text-xs">(2)</span>
+<span class="text-gray-500 mr-2 text-xs">(2)</span>
 
 $$ \tilde{v}^{n+c_2} = v^n + k \alpha_{21} f^n \quad \Rightarrow \quad \tilde{f}^{n+c_2} $$
 
 </div>
 
-<div v-click="4" class="font-bold text-yellow-100">
-<span class="text-yellow-200/50 mr-2 text-sm font-normal">(3)</span>
+<div v-click="4" class="font-bold">
+<span class="text-gray-500 mr-2 text-sm font-normal">(3)</span>
 
 $$ v^{n+1} = v^n + k(b_1 f^n + b_2 f^{n+c_2}) $$
 
@@ -1024,10 +1081,10 @@ $$ v^{n+1} = v^n + k(b_1 f^n + b_2 f^{n+c_2}) $$
 
 </div>
 
-<div class="text-yellow-200 text-xs font-bold ml-6 border-l border-yellow-200/30 pl-6 w-40 flex-shrink-0 text-center">
+<div class="text-gray-500 text-xs font-bold ml-6 border-l border-yellow-200/80 pl-6 w-40 flex-shrink-0 text-center">
 GENERAL 2-STAGE RK
 
-<div class="mt-2 text-white bg-gray-900 p-2 rounded border border-gray-700">
+<div class="mt-2 bg-gray-200 p-2 rounded border border-gray-700">
 
 $$
 \begin{array}{c|cc}
@@ -1044,7 +1101,7 @@ $$
 </div>
 
 <div v-click="5" class="mt-8 px-4">
-<p class="text-sm text-gray-300 mb-4">
+<p class="text-sm text-gray-800 mb-4">
 Apply this to the Cauchy problem:
 </p>
 
@@ -1052,7 +1109,7 @@ Apply this to the Cauchy problem:
 
 <div class="flex items-center space-x-12">
 
-<div class="bg-gray-800 border border-gray-600 w-35 h-25 rounded p-1">
+<div class="bg-gray-800/20 border border-gray-600 w-35 h-25 rounded p-1">
 
 $$
 \begin{cases}
@@ -1065,9 +1122,9 @@ $$
 
 <div class="text-2xl text-yellow-500 mt-2">→</div>
 
-<div class="bg-gray-900 border border-yellow-600 w-35 h-25 rounded p-1 text-white">
+<div class="bg-gray-900/20 border border-yellow-600 w-35 h-25 rounded p-1">
 
-<span class="text-xs text-gray-400 block mb-1">Analytical Solution:</span>
+<span class="text-xs text-gray-500 block mb-1">Analytical Solution:</span>
 $$ u(t) = u_0 e^{t} $$
 
 </div>
@@ -1079,11 +1136,11 @@ $$ u(t) = u_0 e^{t} $$
 
 # Order Conditions
 
-<div v-click="1" class="bg-gray-800 border border-yellow-200 rounded-lg px-6 py-4 flex items-center justify-between mt-4">
+<div v-click="1" class="bg-gray-800/20 border border-yellow-200 rounded-lg px-6 py-4 flex items-center justify-between mt-4">
 
-<div class="text-white text-sm flex-grow">
+<div class="text-sm flex-grow">
 
-<div v-click="2" class="mb-2 text-gray-400">
+<div v-click="2" class="mb-2 text-gray-500">
 <span class="mr-2 text-xs">(1)</span>
 
 $$t_0 = 0, \; v^0 = u_0, \; f^0 = u_0$$
@@ -1091,14 +1148,14 @@ $$t_0 = 0, \; v^0 = u_0, \; f^0 = u_0$$
 </div>
 
 <div v-click="3" class="mb-3">
-<span class="text-gray-400 mr-2 text-xs">(2)</span>
+<span class="text-gray-500 mr-2 text-xs">(2)</span>
 
 $$ \tilde{v}^{c_2} = u_0 + k\alpha_{21}u_0 = u_0(1 + k\alpha_{21}) \quad \Rightarrow \quad \tilde{f}^{c_2} = \tilde{v}^{c_2} $$
 
 </div>
 
-<div v-click="4" class="font-bold text-yellow-100">
-<span class="text-yellow-200/50 mr-2 text-sm font-normal">(3)</span>
+<div v-click="4" class="font-bold">
+<span class="text-gray-500 mr-2 text-sm font-normal">(3)</span>
 
 $$ v^1 = u_0 \left[ 1 + k (b_1 + b_2) + k^2 b_2 \alpha_{21} \right] $$
 
@@ -1106,16 +1163,16 @@ $$ v^1 = u_0 \left[ 1 + k (b_1 + b_2) + k^2 b_2 \alpha_{21} \right] $$
 
 </div>
 
-<div class="text-yellow-200 text-xs font-bold ml-6 border-l border-yellow-200/30 pl-6 w-40 flex-shrink-0 text-center">
+<div class="text-gray-500 text-xs font-bold ml-6 border-l border-yellow-200/80 pl-6 w-40 flex-shrink-0 text-center">
 STABILITY ANALYSIS
 
-<div class="mt-2 text-white bg-gray-900 p-2 rounded border border-gray-700">
+<div class="mt-2 bg-gray-200 p-2 rounded border border-gray-700">
 
 $$ u(t_1) = u_0 e^k $$
 
 </div>
 
-<div class="mt-1 text-gray-400 italic font-normal text-[10px]">
+<div class="mt-1 text-gray-500 italic font-normal text-[10px]">
 
 $$ u_0(1 + k + \tfrac{1}{2}k^2 + \dots) $$
 
@@ -1127,13 +1184,13 @@ $$ u_0(1 + k + \tfrac{1}{2}k^2 + \dots) $$
 
 
 <div v-click="5" class="mt-8 px-4">
-<p class="text-sm text-gray-300 mb-4">
+<p class="text-sm text-gray-800 mb-4">
 Comparing with the exact solution, for <b>second-order accuracy</b> we require:
 </p>
 
 <div class="flex items-center space-x-12">
 
-<div class="bg-gray-800 border border-gray-600 w-35 h-25 rounded p-2">
+<div class="bg-gray-800/20 border border-gray-600 w-35 h-25 rounded p-2">
 
 $$
 \begin{cases}
@@ -1144,7 +1201,7 @@ $$
 
 </div>
 
-<div class="flex-grow text-sm text-gray-400">
+<div class="flex-grow text-sm text-gray-600">
 
 Two equations for three unknowns $(b_1, b_2, \alpha_{21})$.  
 
@@ -1160,7 +1217,7 @@ We add the common constraint relating coefficients of the same row.
 # Consistency Contraints
 
 
-<p class="text-sm text-gray-400 mb-4 italic">
+<p class="text-sm text-gray-800 mb-4 italic">
 General row-sum constraint (consistency):
 </p>
 
@@ -1189,7 +1246,7 @@ $$
 </div>
 
 
-<div v-click="2" class="bg-gray-900 border border-yellow-600 w-35 h-25 rounded p-1 text-white">
+<div v-click="2" class="bg-gray-900/20 border border-yellow-600 w-35 h-25 rounded p-1">
 
 $$\sum_{j=1}^{i-1}\alpha_{ij} = c_i$$
 
@@ -1198,17 +1255,17 @@ $$\sum_{j=1}^{i-1}\alpha_{ij} = c_i$$
 </div>
 
 
-<div v-click="3" class="bg-gray-800 border border-yellow-200 rounded-lg px-6 py-4 flex items-center justify-between mt-4 max-w-3xl">
+<div v-click="3" class="bg-gray-800/20 border border-yellow-200 rounded-lg px-6 py-4 flex items-center justify-between mt-4 max-w-3xl">
 
-<div class="text-white text-sm flex-grow">
+<div class="text-sm flex-grow">
 
-<div class="text-yellow-200/70 text-xs mb-4 font-bold uppercase tracking-wider">
+<div class="text-gray-500 text-xs mb-4 font-bold uppercase tracking-wider">
 Imposing the constraint for our case:
 </div>
 
 <div v-click="4" class="flex items-center space-x-12">
 
-<div class="bg-gray-900 border border-gray-700 p-6 rounded-lg">
+<div class="bg-gray-900/20 border border-gray-700 p-6 rounded-lg">
 
 $$
 \begin{cases}
@@ -1219,7 +1276,7 @@ $$
 
 </div>
 
-<div class="text-gray-400 text-xs italic">
+<div class="text-gray-600 text-xs italic">
 These conditions ensure second-order accuracy by reducing the number of independent unknowns.
 </div>
 
@@ -1227,7 +1284,7 @@ These conditions ensure second-order accuracy by reducing the number of independ
 
 </div>
 
-<div class="text-yellow-200 text-xs font-bold ml-6 border-l border-yellow-200/30 pl-6 w-32 flex-shrink-0 text-center">
+<div class="text-gray-500 text-xs font-bold ml-6 border-l border-yellow-200/80 pl-6 w-32 flex-shrink-0 text-center">
 ORDER 2 CONDITIONS
 
 <div class="mt-4 text-gray-500 font-normal">
@@ -1241,11 +1298,11 @@ $s = 2$
 
 ---
 
-<div class="bg-gray-800 border border-yellow-200 rounded-lg px-6 py-4 flex items-center justify-between mt-4">
+<div class="bg-gray-800/20 border border-yellow-200 rounded-lg px-6 py-4 flex items-center justify-between mt-4">
 
-<div class="text-white text-sm flex-grow">
+<div class="text-sm flex-grow">
 
-<div class="text-yellow-200/70 text-xs mb-2 font-bold uppercase tracking-wider">
+<div class="text-gray-500 text-xs mb-2 font-bold uppercase tracking-wider">
 The resulting R–K matrix is:
 </div>
 
@@ -1264,9 +1321,9 @@ $$
 
 </div>
 
-<div class="text-yellow-200 text-xs font-bold ml-6 border-l border-yellow-200/30 pl-6 w-44 flex-shrink-0 text-center">
+<div class="text-gray-500 text-xs font-bold ml-6 border-l border-yellow-200/80 pl-6 w-44 flex-shrink-0 text-center">
 PARAMETRIC FORM
-<div class="mt-2 text-gray-400 italic font-normal text-[10px]">
+<div class="mt-2 text-gray-500 italic font-normal text-[10px]">
 
 General solution for 2nd order accuracy with $s=2$
 </div>
@@ -1277,8 +1334,8 @@ General solution for 2nd order accuracy with $s=2$
 
 <div v-click="3" class="mt-8 px-4 flex items-center space-x-6">
 
-<div class="bg-gray-900 border-l-4 border-yellow-500 p-4">
-<p class="text-sm text-gray-300">
+<div class="bg-gray-900/20 border-l-4 border-yellow-500 p-4">
+<p class="text-sm text-gray-700">
 In general, it also holds that:
 </p>
 
@@ -1286,7 +1343,7 @@ $$ \sum_{i=1}^{s} b_i = 1 $$
 
 </div>
 
-<div class="text-sm text-gray-400 italic">
+<div class="text-sm text-gray-600 italic">
 For specific choices of coefficients, canonical reference matrices exist.
 </div>
 
@@ -1345,7 +1402,7 @@ layout: default
 ---
 
 # Integral Formulation
-
+##
 We discretize time as $t_n = n k$ and define:
 
 <div v-click="1" class="my-4">
@@ -1373,7 +1430,7 @@ $$ u(t_{n+1}) - u(t_n) = \int_{t_n}^{t_{n+1}} q(t)\, dt $$
 
 </div>
 
-<div v-click="4" class="mt-4 font-bold text-yellow-500">
+<div v-click="4" class="mt-4 font-bold text-red-800">
 
 $$ \Rightarrow \quad v^{n+1} = v^n + \int_{t_n}^{t_{n+1}} q(t)\, dt $$
 
@@ -1398,7 +1455,7 @@ Depending on whether $f^{n+1}$ is included in $q(t)$, the resulting scheme is:
 
 <img src="./Figures/poly.png" class="h-50 rounded shadow-md" alt="Polynomial Interpolation" />
 
-<div class="mt-2 text-sm text-gray-500 italic">
+<div class="mt-2 text-sm text-gray-600 italic">
 
 Interpolation of $f(t)$ at multiple time levels.
 
@@ -1437,14 +1494,14 @@ $$v^{n+1} = v^n + \int_{t_n}^{t_{n+1}} f^n dt$$
   $$ \Rightarrow $$
 </div>
 
-  <div class="bg-indigo-800 border border-yellow-200 rounded-lg px-6 py-3 flex items-center justify-between min-w-100 shadow-lg">
-    <span class="text-white text-xl">
+  <div class="bg-indigo-800/20 border border-yellow-200 rounded-lg px-6 py-3 flex items-center justify-between min-w-100 shadow-lg">
+    <span class="text-xl">
 
   $$ v^{n+1} = v^n + k f^n$$
 
   </span>
 
-  <div class="text-yellow-200 text-xs font-bold ml-8 border-l border-yellow-200/30 pl-4 uppercase tracking-wider">
+  <div class="text-gray-600 text-xs font-bold ml-8 border-l border-yellow-200/80 pl-4 uppercase tracking-wider">
       Adams-Bashforth, 1°
     </div>
   </div>
@@ -1477,14 +1534,14 @@ Integrating between $t_n$ and $t_{n+1}$ yields:
   
   
 
-  <div class="bg-indigo-800 border border-yellow-200 rounded-lg px-6 py-4 flex items-center justify-between min-w-120 shadow-lg">
-    <span class="text-white text-xl">
+  <div class="bg-indigo-800/20 border border-yellow-200 rounded-lg px-6 py-4 flex items-center justify-between min-w-120 shadow-lg">
+    <span class="text-xl">
 
   $$v^{n+1} = v^n + \frac{k}{2} (3 f^n - f^{n-1})$$
 
   </span>
 
-  <div class="text-yellow-200 text-xs font-bold ml-8 border-l border-yellow-200/30 pl-4 uppercase tracking-wider text-right">
+  <div class="text-gray-600 text-xs font-bold ml-8 border-l border-yellow-200/80 pl-4 uppercase tracking-wider text-right">
       Adams-Bashforth,<br>2° Order
     </div>
   </div>
@@ -1514,14 +1571,14 @@ Integrating between $t_n$ and $t_{n+1}$ gives:
   
 
 
-  <div class="bg-red-800 border border-yellow-200 rounded-lg px-4 py-3 w-120 h-20 flex items-center justify-between">
-    <span class="text-white text-xl">
+  <div class="bg-red-800/20 border border-yellow-200 rounded-lg px-4 py-3 w-120 h-20 flex items-center justify-between">
+    <span class="text-xl">
 
   $$v^{n+1} = v^n + k f^{n+1}$$
 
   </span>
 
-  <div class="text-yellow-200 text-xs font-bold ml-8 border-l border-yellow-200/30 pl-4 uppercase tracking-wider text-right">
+  <div class="text-gray-600 text-xs font-bold ml-8 border-l border-yellow-200/80 pl-4 uppercase tracking-wider text-right">
       Adams–Moulton,<br>1° Order
     </div>
   </div>
@@ -1556,22 +1613,22 @@ Integrating between $t_n$ and $t_{n+1}$ yields:
 <div v-click="3" class="flex items-center gap-4 mt-4">
   
   
-  <div class="bg-red-800 border border-yellow-200 rounded-lg px-4 py-3 w-120 h-20 flex items-center justify-between">
-    <span class="text-white text-xl">
+  <div class="bg-red-800/20 border border-yellow-200 rounded-lg px-4 py-3 w-120 h-20 flex items-center justify-between">
+    <span class="text-xl">
 
   $$v^{n+1} = v^n + \frac{k}{2} (f^{n+1} + f^n)$$
 
   </span>
-    <div class="text-yellow-200 text-xs font-bold ml-8 border-l border-yellow-200/30 pl-4 uppercase tracking-wider text-right">
+    <div class="text-gray-600 text-xs font-bold ml-8 border-l border-yellow-200/80 pl-4 uppercase tracking-wider text-right">
       Adams-Moulton,<br>2° Order
     </div>
   </div>
 
 </div>
 
-<div v-click="4" class="mt-8 p-3 bg-gray-800/50 rounded border-l-2 border-blue-400">
+<div v-click="4" class="mt-8 p-3 bg-gray-800/20 rounded border-l-2 border-blue-400">
   <p class="text-sm">
-    <span class="font-bold text-blue-400">Trapezoidal Rule:</span> 
+    <span class="font-bold text-blue-800">Trapezoidal Rule:</span> 
     This 2nd order implicit scheme is famously known as the Trapezoidal method. At the 3° ORDER I will have a parabola instead.
   </p>
 </div>
@@ -1591,7 +1648,7 @@ We now approximate the solution $u(t)$ itself with an interpolating polynomial $
 
 Depending on the points selected, $q$ will be a polynomial of 1°, 2°, ... order.
 
-<div class="mt-2 text-sm text-gray-400 italic">
+<div class="mt-2 text-sm text-gray-600 italic">
 
 Note: Approximating $q$ as a constant at $v^{n+1}$ results in a zero derivative, which is a too low order approximation.
 
@@ -1636,12 +1693,12 @@ We can now evaluate $\dot{q}_{BD}(t)$ at different time levels:
 In $t_n$: &nbsp;&nbsp; $\frac{v^{n+1} - v^n}{k} = f^n$
 
 <div class="mt-2 flex items-center gap-4">
-  <div class="border-2 border-blue-400 px-3 py-1 rounded text-blue-100 font-mono">
+  <div class="border-2 border-blue-400 px-3 py-1 rounded text-blue-800 font-mono">
 
   $v^{n+1} = v^n + k f^n$
 
   </div>
-  <span class="text-gray-400 italic">(Explicit Euler)</span>
+  <span class="text-gray-500 italic">(Explicit Euler)</span>
 </div>
 
 </li>
@@ -1651,19 +1708,19 @@ In $t_n$: &nbsp;&nbsp; $\frac{v^{n+1} - v^n}{k} = f^n$
 In $t_{n+1}$: &nbsp;&nbsp; $\frac{v^{n+1} - v^n}{k} = f^{n+1}$
 
 <div class="mt-2 flex items-center gap-4">
-  <div class="border-2 border-red-400 px-3 py-1 rounded text-red-100 font-mono">
+  <div class="border-2 border-red-400 px-3 py-1 rounded text-red-800 font-mono">
 
   $v^{n+1} = v^n + k f^{n+1}$
 
   </div>
-  <span class="text-gray-400 italic">(Implicit Euler)</span>
+  <span class="text-gray-500 italic">(Implicit Euler)</span>
 </div>
 
 </li>
 
 </ul>
 
-<div v-click="3" class="mt-12 pt-4 border-t border-gray-700 text-gray-300">
+<div v-click="3" class="mt-12 pt-4 border-t border-gray-700 text-gray-700">
 
 These represent the simplest members of the Backward Differentiation family.
 
@@ -1735,12 +1792,12 @@ Evaluating the derivative $\dot{q}_{BD}(t)$ at different time levels:
   $$\Rightarrow$$
 
 </div>
-  <div class="border-2 border-blue-400 px-3 py-1 rounded text-blue-100 font-mono">
+  <div class="border-2 border-blue-400 px-3 py-1 rounded text-blue-800 font-mono">
 
   $$v^{n+1} = v^{n-1} + 2k f^n$$
 
   </div>
-  <span class="text-gray-400 italic ml-4">(Explicit 2-step scheme)</span>
+  <span class="text-gray-500 italic ml-4">(Explicit 2-step scheme)</span>
 </div>
 
 </li>
@@ -1756,12 +1813,12 @@ Evaluating the derivative $\dot{q}_{BD}(t)$ at different time levels:
 
 </div>
 
-  <div class="border-2 border-red-400 px-3 py-1 rounded text-red-100 font-mono">
+  <div class="border-2 border-red-400 px-3 py-1 rounded text-red-800 font-mono">
 
   $v^{n+1} = -\frac{1}{3}v^{n-1} + \frac{4}{3}v^n + \frac{2}{3}k f^{n+1}$
 
   </div>
-  <span class="text-gray-400 italic ml-4">(Implicit 2-step scheme / BDF2)</span>
+  <span class="text-gray-500 italic ml-4">(Implicit 2-step scheme / BDF2)</span>
 </div>
 
 </li>
@@ -1777,22 +1834,22 @@ Suppose we know the solution at discrete points $(x_j, t_n)$.
 We define $v_j^n$ as the numerical approximation: $v_j^n \simeq u(x_j, t_n)$.
 
 <div class="grid grid-cols-2 gap-4 mt-8">
-  <div v-click="1" class="bg-gray-800/50 p-4 rounded-lg border border-blue-500/30">
-    <p class="text-blue-400 font-bold mb-2">Spatial Grid</p>
+  <div v-click="1" class="bg-gray-800/20 p-4 rounded-lg border border-blue-500/30">
+    <p class="text-purple-800 font-bold mb-2">Spatial Grid</p>
 
   $$x_{j+1} = x_j + h$$
 
-  <p class="text-sm text-gray-400"> 
+  <p class="text-sm text-gray-500"> 
 
   $$\Delta x = h \quad \text{(spatial step)}$$ 
 </p>
   </div>
-  <div v-click="2" class="bg-gray-800/50 p-4 rounded-lg border border-yellow-500/30">
-    <p class="text-yellow-400 font-bold mb-2">Temporal Grid</p>
+  <div v-click="2" class="bg-gray-800/20 p-4 rounded-lg border border-yellow-500/30">
+    <p class="text-green-800 font-bold mb-2">Temporal Grid</p>
 
   $$t_{n+1} = t_n + k$$
 
-  <p class="text-sm text-gray-400">
+  <p class="text-sm text-gray-500">
   
   $$\Delta t = k \quad \text{(temporal step)}$$ 
 </p>
@@ -1803,8 +1860,9 @@ We define $v_j^n$ as the numerical approximation: $v_j^n \simeq u(x_j, t_n)$.
 
 
 <div v-click="3" class="mt-10 p-4 ">
+
 Let's introduce a series of <strong>discrete operators</strong>. 
-Those acting on the <b>time</b> coordinate use a <b>superscript</b> ($$n$$), 
+Those acting on the <b>time</b> coordinate use a <b>superscript</b> ($n$), 
 while those for the <b>spatial</b> coordinate use a <b>subscript</b> ($j$).
 
 </div>
@@ -1841,9 +1899,9 @@ $$
 
 </div>
 
-<div v-click="3" class="mt-8 p-2 border-2 border-gray-600 rounded bg-gray-800/30 px-6 py-0 h-47">
+<div v-click="3" class="mt-8 p-2 border-2 border-gray-600 rounded bg-gray-800/20 px-6 py-0 h-47">
 
-<p class="text-yellow-500 mb-2">Properties:</p>
+<p class="text-gray-600 mb-2">Properties:</p>
 
 <div class="grid grid-cols-2 gap-4 text-center h-20 ">
   <div class="border-r border-gray-700">
@@ -1874,14 +1932,14 @@ By defining $\delta^X = \delta^- \cdot \delta^+$, we obtain the second-order cen
 
 <div v-click="1" class="mt-8 flex items-center justify-center gap-8">
   
-  <div class="border-2 border-yellow-500 px-6 py-4 rounded bg-yellow-500/5 font-mono text-xl">
+  <div class="border-2 border-green-500 px-6 py-4 rounded  bg-green-500/5 font-mono text-xl">
 
   $$\delta^X v_j^n = \frac{1}{k^2} \left(v_j^{n+1}-2v_j^n + v_j^{n-1} \right)$$
   </div>
 
   <div class="border-l-4 border-gray-500 pl-4 py-1">
-    <span class="text-gray-400 italic !text-xs block mb-1">Commutative Property:</span>
-    <div class="text-blue-300 text-lg">
+    <span class="text-gray-800 italic !text-xs block mb-1">Commutative Property:</span>
+    <div class="text-blue-800 text-lg">
 
   $$\delta^X = \delta^- \cdot \delta^+ = \delta^+ \cdot \delta^-$$
 
@@ -1903,9 +1961,9 @@ By defining $\delta^X = \delta^- \cdot \delta^+$, we obtain the second-order cen
 
 # Geometric Interpretation
 
-<div v-click="1" class="bg-gray-800 border border-yellow-200/50 rounded-lg px-8 py-6 w-full mt-4">
+<div v-click="1" class="bg-gray-800/20 border border-yellow-200/50 rounded-lg px-8 py-6 w-full mt-4">
 
-<div class="text-white text-sm">
+<div class="text-sm">
 
 <div v-click="2" class="mb-6">
 <span class="text-gray-400 mr-2 text-xs"> 
@@ -1953,12 +2011,12 @@ $$\delta_- v_j^n = \frac{1}{h} (v_j^n - v_{j-1}^n) \quad \Rightarrow \quad \fbox
 
 # Higher Order Interpolation
 
-<div v-click="1" class="bg-gray-800 border border-yellow-200/50 rounded-lg px-4 py-0 w-full h-70 mt-2">
+<div v-click="1" class="bg-gray-800/20 border border-yellow-200/50 rounded-lg px-4 py-0 w-full h-70 mt-2">
 
-<div class="text-white text-sm">
+<div class="text-sm">
 
 <div v-click="2" class="mb-2">
-<span class="text-gray-400 mr-2 text-xs"></span>
+<span class="text-gray-500 mr-2 text-xs"></span>
 
 Now suppose we interpolate with a parabola passing through $v_{j-1}^n, v_j^n, v_{j+1}^n$.
 After some passages, we arrive at the second order derivative:
@@ -1971,14 +2029,14 @@ $$\frac{\partial^2 }{\partial x^2} u(x, t_n) = \frac{1}{h^2} \left(v_{j+1}^{n}-2
 </div>
 
 <div v-click="3" class="mb-2">
-<span class="text-gray-400 mr-2 text-xs"></span>
+<span class="text-gray-500 mr-2 text-xs"></span>
 This yields the central difference for the second derivative:
 
 <div class="my-4 flex items-center gap-4">
 
 $$\Rightarrow \fbox{$ \frac{\partial^2 u}{\partial x^2} = \delta_X v_j^n $}$$
 
-<span class="text-gray-400 italic text-xs">[curvature of the parabola]</span>
+<span class="text-gray-600 italic text-xs">[curvature of the parabola]</span>
 </div>
 </div>
 
@@ -1989,8 +2047,8 @@ $$\Rightarrow \fbox{$ \frac{\partial^2 u}{\partial x^2} = \delta_X v_j^n $}$$
 
 
 <div v-click="4" class="mt-4 space-y-2">
-<p class="text-gray-300">Summary of approximations:</p>
-<ul class="list-disc list-inside text-sm text-gray-400 ml-4">
+<p class="text-gray-600">Summary of approximations:</p>
+<ul class="list-disc list-inside text-sm text-gray-600 ml-4">
   <li> 
 
 Interpolating polynomial $1^\circ$ degree: $D^{(1)} = \delta_{\pm}$
@@ -2016,12 +2074,12 @@ It is possible to achieve the same result by expanding in a <strong>Taylor serie
 ##
 Let's start from the transport equation: $u_t + c u_x = 0$.
 
-<div v-click="1" class="bg-gray-800 border border-yellow-200/50 rounded-lg px-8 py-6 w-full mt-4 flex justify-between items-center">
+<div v-click="1" class="bg-gray-800/20 border border-yellow-200/50 rounded-lg px-8 py-6 w-full mt-4 flex justify-between items-center">
 
-<div class="text-white text-sm flex-grow">
+<div class="text-sm flex-grow">
 
 <div v-click="2" class="mb-6">
-<span class="text-gray-400 mr-2 text-xs"></span>
+<span class="text-gray-500 mr-2 text-xs"></span>
 Starting from: &nbsp; <span class="text-lg">
 
 $$\fbox{$ \delta^+ v_j^n = -c \delta^+ v_j^n $} $$
@@ -2036,7 +2094,7 @@ $$\frac{1}{k} \left(v_j^{n+1} - v_j^n \right) = - \frac{c}{h} \left( v_{j+1}^n -
 </div>
 
 <div v-click="3" class="mb-2">
-<span class="text-gray-400 mr-2 text-xs"></span>
+<span class="text-gray-500 mr-2 text-xs"></span>
 We obtain the update formula:
 
 <div class="my-4">
@@ -2067,12 +2125,12 @@ $$\fbox{$ v_j^{n+1} =  v_j^n - c \lambda \left( v_{j+1}^n - v_j^n\right) $}$$
 ##
 Starting from the transport equation: $u_t + c u_x = 0$.
 
-<div v-click="1" class="bg-gray-800 border border-yellow-200/50 rounded-lg px-8 py-6 w-full mt-4 flex justify-between items-center">
+<div v-click="1" class="bg-gray-800/20 border border-yellow-200/50 rounded-lg px-8 py-6 w-full mt-4 flex justify-between items-center">
 
-<div class="text-white text-sm flex-grow">
+<div class="text-sm flex-grow">
 
 <div v-click="2" class="mb-6">
-<span class="text-gray-400 mr-2 text-xs"></span>
+<span class="text-gray-500 mr-2 text-xs"></span>
 Starting from: &nbsp; <span class="text-lg">
 
 $$\fbox{$ \delta^+ v_j^n = - c \delta^- v_j^n $} $$
@@ -2087,7 +2145,7 @@ $$\frac{1}{k} \left(v_j^{n+1} - v_j^n \right) = - \frac{c}{h} \left( v_{j}^n - v
 </div>
 
 <div v-click="3" class="mb-2">
-<span class="text-gray-400 mr-2 text-xs"></span>
+<span class="text-gray-500 mr-2 text-xs"></span>
 We obtain the update formula:
 
 <div class="my-4">
@@ -2119,12 +2177,12 @@ But how can I choose between the previous formulas?
 
 <div v-click="1" >
 
-<div class="text-white text-sm">
+<div class="text-sm">
 
 <div v-click="2" >
 <div class="flex items-center gap-4 mb-2">
-  <div class="bg-blue-500 text-black px-2 py-0.5 rounded font-bold text-xs">CASE 1</div>
-  <span class="text-blue-200 font-bold"> 
+  <div class="bg-blue-200 text-black px-2 py-0.5 rounded font-bold text-xs">CASE 1</div>
+  <span class="text-blue-800 font-bold"> 
     
   If $c > 0$:
 
@@ -2140,8 +2198,8 @@ The wave propagates backward, and it is useful to use the first formula:
 
 <div v-click="3">
 <div class="flex items-center gap-4 mb-2">
-  <div class="bg-green-500 text-black px-2 py-0.5 rounded font-bold text-xs">CASE 2</div>
-  <span class="text-green-200 font-bold">
+  <div class="bg-green-200 text-black px-2 py-0.5 rounded font-bold text-xs">CASE 2</div>
+  <span class="text-green-800 font-bold">
 
   If $c < 0$:
 
@@ -2161,7 +2219,7 @@ The wave propagates forward, and it is useful to use the second one:
 
 
 
-<div v-click="4" class="mt-6 p-4 bg-yellow-900/20 border-l-4 border-yellow-500 text-xs italic text-gray-300">
+<div v-click="4" class="mt-6 p-4 bg-yellow-600/20 border-l-4 border-yellow-500 text-xs italic text-gray-800">
 Note: The choice of the spatial operator depends on the <strong>direction of information flow</strong> (characteristic direction).
 </div>
 
@@ -2173,12 +2231,12 @@ Note: The choice of the spatial operator depends on the <strong>direction of inf
 ##
 Starting from the transport equation: $u_t + c u_x = 0$.
 
-<div v-click="1" class="bg-gray-800 border border-yellow-200/50 rounded-lg px-8 py-6 w-full mt-4 flex justify-between items-center">
+<div v-click="1" class="bg-gray-800/20 border border-yellow-200/50 rounded-lg px-8 py-6 w-full mt-4 flex justify-between items-center">
 
-<div class="text-white text-sm flex-grow">
+<div class="text-sm flex-grow">
 
 <div v-click="2" class="mb-6">
-<span class="text-gray-400 mr-2 text-xs"></span>
+<span class="text-gray-500 mr-2 text-xs"></span>
 Starting from: &nbsp; <span class="text-lg">
 
 $$\fbox{$ \delta^+ v_j^n = - c \delta_0 v_j^n $} $$
@@ -2193,7 +2251,7 @@ $$\frac{1}{k} \left(v_j^{n+1} - v_j^n \right) = - \frac{c}{2h} \left( v_{j+1}^n 
 </div>
 
 <div v-click="3" class="mb-2">
-<span class="text-gray-400 mr-2 text-xs"></span>
+<span class="text-gray-500 mr-2 text-xs"></span>
 We obtain the update formula:
 
 <div class="my-4">
@@ -2223,9 +2281,9 @@ $$\fbox{$ v_j^{n+1} = v_j^n - \frac{1}{2} c \lambda \left( v_{j+1}^n - v_{j-1}^n
 ##
 Starting from the transport equation: $u_t + c u_x = 0$.
 
-<div v-click="1" class="bg-gray-800 border border-yellow-200/50 rounded-lg px-8 py-6 w-full mt-4 flex justify-between items-center">
+<div v-click="1" class="bg-gray-800/20 border border-yellow-200/50 rounded-lg px-8 py-6 w-full mt-4 flex justify-between items-center">
 
-<div class="text-white text-sm flex-grow">
+<div class="text-sm flex-grow">
 
 <div v-click="2" class="mb-6">
 <span class="text-gray-400 mr-2 text-xs"></span>
@@ -2243,7 +2301,7 @@ $$\frac{1}{2k} \left(v_j^{n+1} - v_j^{n-1} \right) = - \frac{c}{2h} \left( v_{j+
 </div>
 
 <div v-click="3" class="mb-2">
-<span class="text-gray-400 mr-2 text-xs"></span>
+<span class="text-gray-500 mr-2 text-xs"></span>
 We obtain the update formula:
 
 <div class="my-4">
@@ -2273,12 +2331,12 @@ $$\fbox{$ v_j^{n+1} =  v_j^{n-1} - c \lambda  \left( v_{j+1}^n - v_{j-1}^n\right
 ##
 Starting from the transport equation: $u_t + c u_x = 0$.
 
-<div v-click="1" class="bg-gray-800 border border-yellow-200/50 rounded-lg px-8 py-6 w-full mt-4 flex justify-between items-center">
+<div v-click="1" class="bg-gray-800/20 border border-yellow-200/50 rounded-lg px-8 py-6 w-full mt-4 flex justify-between items-center">
 
-<div class="text-white text-sm flex-grow">
+<div class="text-sm flex-grow">
 
 <div v-click="2" class="mb-6">
-<span class="text-gray-400 mr-2 text-xs"></span>
+<span class="text-gray-500 mr-2 text-xs"></span>
 Starting from: &nbsp; <span class="text-lg">
 
 $$\fbox{$ \delta^+ v_j^n = - \frac{c}{2} \left( \delta_0 v_{j}^n + \delta_0 v_j^{n+1}\right) $} $$
@@ -2292,15 +2350,15 @@ $$\frac{1}{k} \left(v_j^{n+1} - v_j^{n} \right) = - \frac{c}{4h} \left( v_{j+1}^
 </div>
 </div>
 
-<div v-click="3" class="mb-2 text-white">
-<span class="text-gray-400 mr-2 text-xs"></span>
+<div v-click="3" class="mb-2">
+<span class="text-gray-500 mr-2 text-xs"></span>
 We obtain the update formula:
 
 <div class="my-4">
 
 $$\fbox{$ v_j^{n+1} =  v_j^{n} - \frac{1}{4} c \lambda  \left( v_{j+1}^n - v_{j-1}^n + v_{j+1}^{n+1} - v_{j-1}^{n+1} \right) $}$$
 
-<p class="text-blue-300 italic text-xs mt-2 text-right"> [implicit] </p>
+<p class="text-blue-500 italic text-xs mt-2 text-right"> [implicit] </p>
 </div>
 </div>
 
@@ -2325,12 +2383,12 @@ $$\fbox{$ v_j^{n+1} =  v_j^{n} - \frac{1}{4} c \lambda  \left( v_{j+1}^n - v_{j-
 ##
 Starting from the transport equation: $u_t + c u_x = 0$.
 
-<div v-click="1" class="bg-gray-800 border border-yellow-200/50 rounded-lg px-8 py-6 w-full mt-4 flex justify-between items-center">
+<div v-click="1" class="bg-gray-800/20 border border-yellow-200/50 rounded-lg px-8 py-6 w-full mt-4 flex justify-between items-center">
 
-<div class="text-white text-sm flex-grow">
+<div class="text-sm flex-grow">
 
 <div v-click="2" class="mb-6">
-<span class="text-gray-400 mr-2 text-xs"></span>
+<span class="text-gray-500 mr-2 text-xs"></span>
 Starting from: &nbsp; <span class="text-lg">
 
 $$\fbox{$ \delta^+ v_j^n = - c \delta_0 v_j^{n+1} $} $$
@@ -2345,14 +2403,14 @@ $$\frac{1}{k} \left(v_j^{n+1} - v_j^{n} \right) = - \frac{c}{2h} \left( v_{j+1}^
 </div>
 
 <div v-click="3" class="mb-2">
-<span class="text-gray-400 mr-2 text-xs"></span>
+<span class="text-gray-500 mr-2 text-xs"></span>
 We obtain the update formula:
 
 <div class="my-4">
 
 $$\fbox{$ v_j^{n+1} =  v_j^{n} - \frac{1}{2} c \lambda  \left(v_{j+1}^{n+1} - v_{j-1}^{n+1} \right) $}$$
 
-<p class="text-blue-300 italic text-xs mt-2 text-right"> [implicit] </p>
+<p class="text-blue-500 italic text-xs mt-2 text-right"> [implicit] </p>
 </div>
 </div>
 
@@ -2378,12 +2436,12 @@ $$\fbox{$ v_j^{n+1} =  v_j^{n} - \frac{1}{2} c \lambda  \left(v_{j+1}^{n+1} - v_
 
 It was born as an attempt to stabilize Euler: it adds a $2^\circ$ order term to Euler's formula. \[ some like $u_t = - cu_x + \frac{c^2}{2}u_{xx}$]
 
-<div v-click="1" class="bg-gray-800 border border-yellow-200/50 rounded-lg px-8 py-6 w-full mt-4 flex justify-between items-center">
+<div v-click="1" class="bg-gray-800/20 border border-yellow-200/50 rounded-lg px-8 py-6 w-full mt-4 flex justify-between items-center">
 
-<div class="text-white text-sm flex-grow">
+<div class="text-sm flex-grow">
 
 <div v-click="2" class="mb-6">
-<span class="text-gray-400 mr-2 text-xs"></span>
+<span class="text-gray-500 mr-2 text-xs"></span>
 Starting from: &nbsp; <span class="text-lg">
 
 $$\fbox{$ \delta^+ v_j^n = c  \left( - \delta_0 v_{j}^{n} + c \frac{k}{2} \delta_X v_{j}^{n}\right)  $} $$
@@ -2398,7 +2456,7 @@ $$\frac{1}{k} \left(v_j^{n+1} - v_j^{n} \right) = - \frac{c}{2h} \left( v_{j+1}^
 </div>
 
 <div v-click="3" class="mb-2">
-<span class="text-gray-400 mr-2 text-xs"></span>
+<span class="text-gray-500 mr-2 text-xs"></span>
 We obtain the update formula:
 
 <div class="my-4 scale-95 origin-left">
@@ -2454,7 +2512,7 @@ $$\fbox{$ v_j^{n+1} = v_j^n - c\lambda \left( v_j^n - v_{j-1}^n \right) $}$$
 
 </div>
 
-<p class="text-gray-500 italic text-xs mt-2 text-center">
+<p class="text-gray-600 italic text-xs mt-2 text-center">
 
 where $\lambda = \frac{\Delta t}{\Delta x}$ is the mesh ratio.
 </p>
@@ -2567,7 +2625,7 @@ $$
 
 
 <div v-click="2" class="mt-12 p-4 bg-gray-100/5 border-l-4 border-gray-500">
-<p class="text-sm text-gray-400">
+<p class="text-sm text-gray-600">
 
 This decomposition allows us to analyze the <strong>magnitude</strong> $|z|$, which must be $\leq 1$ for stability.
 </p>
@@ -2648,7 +2706,7 @@ $$\fbox{$ 0 \le c\lambda \le 1 $}$$
 
 </div>
 
-<p class="mt-6 text-gray-400 italic text-center">
+<p class="mt-6 text-gray-500 italic text-center">
 
 This is the <span v-mark.red="3"> <strong>CFL (Courant-Friedrichs-Lewy)</strong> </span>  condition for the upwind scheme.
 
@@ -2714,9 +2772,9 @@ The behavior of the scheme depends on the magnitude of $z$:
 
 <div class="mt-6 space-y-4">
 
-* <span class="text-yellow-400 font-bold">$|z| < 1$:</span> stable but **numerically diffusive** (amplitude decreases)
-* <span class="text-green-400 font-bold">$|z| = 1$:</span> stable and **amplitude-preserving**
-* <span class="text-red-400 font-bold">$|z| > 1$:</span> **unstable** (amplitude grows exponentially)
+* <span class="text-blue-600 font-bold">$|z| < 1$:</span> stable but **numerically diffusive** (amplitude decreases)
+* <span class="text-green-600 font-bold">$|z| = 1$:</span> stable and **amplitude-preserving**
+* <span class="text-red-600 font-bold">$|z| > 1$:</span> **unstable** (amplitude grows exponentially)
 
 </div>
 
@@ -2741,7 +2799,7 @@ Summary of stability conditions for the 1D transport equation:
 
 </div>
 
-<div v-click="2" class="mt-12 p-4 bg-yellow-900/10 border border-yellow-500/30 rounded text-xs text-gray-400 italic">
+<div v-click="2" class="mt-12 p-4 bg-yellow-600/10 border border-yellow-500/30 rounded text-xs text-gray-600 italic">
 Note: Unconditionally stable schemes allow for larger time steps, but they may introduce significant numerical dissipation.
 </div>
 
@@ -2879,7 +2937,7 @@ $$\fbox{$ c\lambda \le 1, \qquad \lambda = \frac{\Delta t}{\Delta x} $}$$
 
 </div>
 
-<p class="mt-6 text-gray-400 italic text-center">
+<p class="mt-6 text-gray-500 italic text-center">
 This is the CFL condition for the upwind scheme.
 </p>
 
@@ -2914,9 +2972,9 @@ The CFL number $c\lambda = c\frac{\Delta t}{\Delta x}$ represents the distance t
 
 <div v-click="1" class="mt-12 ml-10">
 
-* <span class="text-blue-400">**$c\lambda < 1$:**</span> wave travels less than one cell per time step
-* <span class="text-green-400">**$c\lambda = 1$:**</span> wave travels exactly one cell
-* <span class="text-red-400">**$c\lambda > 1$:**</span> numerical scheme cannot capture the propagation
+* <span class="text-blue-500">**$c\lambda < 1$:**</span> wave travels less than one cell per time step
+* <span class="text-green-500">**$c\lambda = 1$:**</span> wave travels exactly one cell
+* <span class="text-red-500">**$c\lambda > 1$:**</span> numerical scheme cannot capture the propagation
 
 </div>
 
