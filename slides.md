@@ -53,10 +53,6 @@ Here is another comment.
   </a>
 </div>
 
-<a href="./slides-export.pdf" download class="px-3 py-1 rounded border(white opacity-20) hover:bg-white/10 transition">
-  📥 Download PDF
-</a>
-
 
 ---
 
