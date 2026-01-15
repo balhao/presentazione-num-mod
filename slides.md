@@ -83,7 +83,7 @@ Here is another comment.
 
 
 <div class="px-4 py-2 rounded-lg bg-blue-50 border border-blue-200 text-blue-900">
-<span class="font-bold mr-2">4.</span> Backwar Differentiation Formula (BDF)
+<span class="font-bold mr-2">4.</span> Backward Differentiation Formula (BDF)
 </div>
 
 <div class="px-4 py-2 rounded-lg bg-teal-50 border border-teal-200 text-teal-900">
@@ -97,7 +97,7 @@ Here is another comment.
 
 
 <div class="px-4 py-2 rounded-lg bg-teal-50 border border-teal-200 text-teal-900">
-<span class="font-bold mr-2">7.</span> Stability of the Solution and CFL codition
+<span class="font-bold mr-2">7.</span> Stability of the Solution and CFL condition
 </div>
 
 <div class="px-4 py-2 rounded-lg bg-teal-50 border border-teal-200 text-teal-900">
