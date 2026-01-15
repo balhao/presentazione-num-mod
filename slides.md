@@ -1494,7 +1494,7 @@ $$v^{n+1} = v^n + \int_{t_n}^{t_{n+1}} f^n dt$$
   $$ \Rightarrow $$
 </div>
 
-  <div class="bg-indigo-800/20 border border-yellow-200 rounded-lg px-6 py-3 flex items-center justify-between min-w-100 shadow-lg">
+  <div class="bg-indigo-800/20 border border-yellow-200 rounded-lg px-4 py-3 w-120 h-20 flex items-center justify-between">
     <span class="text-xl">
 
   $$ v^{n+1} = v^n + k f^n$$
@@ -1534,7 +1534,7 @@ Integrating between $t_n$ and $t_{n+1}$ yields:
   
   
 
-  <div class="bg-indigo-800/20 border border-yellow-200 rounded-lg px-6 py-4 flex items-center justify-between min-w-120 shadow-lg">
+  <div class="bg-indigo-800/20 border border-yellow-200 rounded-lg px-4 py-3 w-120 h-20 flex items-center justify-between">
     <span class="text-xl">
 
   $$v^{n+1} = v^n + \frac{k}{2} (3 f^n - f^{n-1})$$
