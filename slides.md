@@ -42,10 +42,19 @@ Here is another comment.
 
 # Numerical methods to solve differential equations
 
-[📥 Scarica le slide in PDF](/presentazione-num-mod/slides-export.pdf)
+
+<div class="mt-2 text-xl opacity-80">
+  Enrico Baglione
+</div>
+
+<div class="mt-10">
+  <a href="./slides-export.pdf" download class="px-3 py-1 rounded border border-white/20 hover:bg-white/10 transition no-underline">
+    📥 Download PDF
+  </a>
+</div>
 
 <a href="./slides-export.pdf" download class="px-3 py-1 rounded border(white opacity-20) hover:bg-white/10 transition">
-  📥 Scarica PDF
+  📥 Download PDF
 </a>
 
 
