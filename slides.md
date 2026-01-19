@@ -64,7 +64,9 @@ Here is another comment.
 
 # Outline
 
-<RestartOnEnter><SpirographBackground /></RestartOnEnter>
+<RestartOnEnter>
+  <SpirographBackground :speed="50" :trailLength="11000" />
+</RestartOnEnter>
 
 <div class="flex flex-col gap-3 mt-6">
 
@@ -128,6 +130,7 @@ The bridge between theory and reality
 # What Are Numerical Methods?
 ## From Continuous to Discrete
 
+
 Numerical methods are computational techniques that approximate solutions to mathematical problems where exact methods often fail.
 
 <div v-click class="mt-8 grid grid-cols-2 gap-4">
@@ -148,11 +151,16 @@ Numerical methods are computational techniques that approximate solutions to mat
 </div>
 
 
+<RestartOnEnter>
+  <Gravity3DBackground :speed="50" :trailLength="11000" />
+</RestartOnEnter>
 
 ---
 
 # Why Are They Indispensable?
 ## 1. Tackling Real-World Complexity
+
+
 
 Analytical solutions are rare for nonlinear, coupled equations or complex boundary conditions.
 
@@ -193,6 +201,10 @@ Handling massive systems of equations for:
 
 # Theoretical Underpinning
 ## Beyond Pure Computation
+
+<RestartOnEnter>
+  <SpinnerBackground :speed="50" :trailLength="11000" />
+</RestartOnEnter>
 
 The success of any numerical algorithm is grounded in three pillars:
 
@@ -256,6 +268,11 @@ The success of any numerical algorithm is grounded in three pillars:
   </div>
 
 </div>
+
+<RestartOnEnter>
+  <InterferenceBackground :speed="50" :trailLength="11000" />
+</RestartOnEnter>
+
 
 ---
 layout: center
