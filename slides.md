@@ -109,6 +109,177 @@ Here is another comment.
 
 ---
 
+<RestartOnEnter>
+  <LorenzBackground :speed="50" :trailLength="11000" />
+</RestartOnEnter>
+
+<div class="flex flex-col h-full justify-center items-center text-black">
+
+# Introduction to Numerical Methods
+
+<p class="text-2xl opacity-80">
+The bridge between theory and reality
+</p>
+
+</div>
+
+---
+
+# What Are Numerical Methods?
+## From Continuous to Discrete
+
+Numerical methods are computational techniques that approximate solutions to mathematical problems where exact methods often fail.
+
+<div v-click class="mt-8 grid grid-cols-2 gap-4">
+<div>
+
+### The Core Process
+* **Discretization:** Converting continuous expressions (PDEs/ODEs) into manageable discrete forms.
+* **Techniques:** Finite Differences (FDM), Finite Elements (FEM), Iterative Solvers.
+</div>
+
+<div class="border-l border-gray-500/30 pl-4">
+
+### The Philosophy
+* Focus on **practicality** over pure symbolic elegance.
+* Delivers answers with **controllable and quantifiable accuracy**.
+* Invaluable for data-driven and computation-heavy environments.
+</div>
+</div>
+
+
+
+---
+
+# Why Are They Indispensable?
+## 1. Tackling Real-World Complexity
+
+Analytical solutions are rare for nonlinear, coupled equations or complex boundary conditions.
+
+<div v-click class="mt-6">
+
+* **Jet Engines:** Simulating heat transfer via Finite Difference methods.
+* **Skyscrapers:** Modeling stress distribution using Finite Element Analysis (FEA).
+* **Acoustics:** Solving the Wave Equation for concert hall design.
+</div>
+
+
+
+---
+
+# Why Are They Indispensable?
+## 2. Scalability and Interdisciplinary Utility
+
+<div class="grid grid-cols-2 gap-10">
+<div v-click>
+
+### Scalability
+Handling massive systems of equations for:
+* Climate simulations
+* Large-scale Neural Networks
+* Quantum simulations
+</div>
+
+<div v-click>
+
+### Disciplines
+* **Physics:** Chaotic systems and plasma dynamics.
+* **Finance:** Option pricing via Stochastic Differential Equations.
+* **Biology:** Disease spread and population dynamics.
+</div>
+</div>
+
+---
+
+# Theoretical Underpinning
+## Beyond Pure Computation
+
+The success of any numerical algorithm is grounded in three pillars:
+
+<div v-click class="mt-8 space-y-4">
+
+* <span class="text-blue-400 font-bold">Convergence:</span> Does the approximate solution $v$ approach the exact solution $u$ as $\Delta x, \Delta t \to 0$?
+* <span class="text-green-400 font-bold">Stability:</span> Does the algorithm suppress errors (round-off/truncation) over time?
+* <span class="text-yellow-400 font-bold">Consistency:</span> Does the numerical scheme truly represent the original PDE?
+
+</div>
+
+<div v-click class="mt-10 p-4 bg-gray-500/10 border-l-4 border-primary">
+
+**Lax Equivalence Theorem:** For a well-posed linear problem, Consistency + Stability = Convergence.
+
+</div>
+
+---
+
+# Challenges and the Path Forward
+## Precision vs. Cost
+
+<div class="grid grid-cols-2 gap-4">
+<div v-click>
+
+### Current Hurdles
+* **Trade-offs:** High accuracy vs. substantial computational resources.
+* **Conditioning:** Managing ill-conditioned systems and truncation errors.
+* **Design:** Adapting general methods to specific, creative problems.
+</div>
+
+<div v-click class="border-l border-gray-500/30 pl-4">
+
+### The Future
+* High-Performance Computing (HPC)
+* Machine Learning-assisted solvers
+* Adaptive Mesh Refinement (AMR)
+</div>
+</div>
+
+---
+
+# Real-World Impact
+## Inspiration for Engineers and Scientists
+
+<div class="space-y-6 mt-10">
+
+  <div v-click class="flex items-center gap-4">
+    <div class="text-2xl">🌉</div>
+    <div><strong>The Millau Viaduct:</strong> Designed using FEM for maximum safety and efficiency.</div>
+  </div>
+
+  <div v-click class="flex items-center gap-4">
+    <div class="text-2xl">🌊</div>
+    <div><strong>Tsunami Warnings:</strong> Numerical propagation models providing life-saving early alerts.</div>
+  </div>
+
+  <div v-click class="flex items-center gap-4">
+    <div class="text-2xl">🚀</div>
+    <div><strong>Space Exploration:</strong> Runge-Kutta methods calculating spacecraft trajectories.</div>
+  </div>
+
+</div>
+
+---
+layout: center
+class: text-center
+---
+
+<WireframeShapesBackground />
+
+# Some Thoughts
+
+As Master’s students, you are not just learning tools—**you are shaping the future.**
+
+<div v-click class="mt-6 italic opacity-80">
+Numerical methods are the engine behind progress in science, engineering, and technology.
+</div>
+
+<div v-click class="mt-10 font-bold text-xl text-primary">
+Go beyond the numbers: Solve problems, understand the world, and build the future.
+</div>
+
+
+
+---
+
 # Differential Equations
 ##
 <!-- ## per evidenziare il testo subito -->
