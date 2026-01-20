@@ -1,1 +1,0 @@
-import{r as s,K as a,j as o,i as n}from"./modules/vue-spw53VNv.js";import"./index-BuEbwpAB.js";import{u}from"./slidev/context-DTAgYDvm.js";const _={__name:"RestartOnEnter",setup(i){const{isVisible:r}=u(),e=s(!0);return a(r,t=>{t&&(e.value=!1,setTimeout(()=>{e.value=!0},10))}),(t,m)=>e.value?o(t.$slots,"default",{key:0}):n("v-if",!0)}};export{_};
