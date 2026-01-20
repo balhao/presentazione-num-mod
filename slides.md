@@ -909,6 +909,151 @@ $$ 1 + k + \frac{k^2}{2} + \dots + \frac{k^m}{m!} $$
 </div>
 </div>
 
+
+---
+layout: section
+---
+
+# Explicit vs. Implicit Methods
+Advantages, Disadvantages, and Applications
+
+---
+layout: default
+---
+
+# Introduction
+## Choosing the right numerical approach
+
+The choice between **Explicit** and **Implicit** schemes depends on the specific nature of the physical problem.
+
+<div class="grid grid-cols-2 gap-10 mt-10">
+<div v-click>
+
+### Explicit Methods
+Compute the next state directly from current known values.
+* **Analogy:** Looking at the current map to take the next step.
+</div>
+
+<div v-click>
+
+### Implicit Methods
+Compute the next state by solving a system of equations.
+* **Analogy:** Solving a puzzle where the next step must satisfy a global balance.
+</div>
+</div>
+
+---
+layout: default
+---
+
+# Explicit Numerical Methods
+## Direct computation: $u^{n+1} = F(u^n)$
+
+<div class="grid grid-cols-2 gap-4">
+<div>
+
+### 🟢 Advantages
+* **Simplicity:** Straightforward implementation.
+* **Memory:** Low requirements (no large matrices).
+* **Efficiency:** Very fast per time step for high-resolution needs.
+
+</div>
+<div v-click>
+
+### 🔴 Disadvantages
+* **Stability Constraints:** Must satisfy the **CFL Condition**:
+    $$c \frac{\Delta t}{\Delta x} \leq 1$$
+* **Stiff Problems:** Inefficient; requires extremely small $\Delta t$ to avoid "blowing up."
+
+</div>
+</div>
+
+---
+
+<RestartOnEnter><WaveBackground /></RestartOnEnter>
+
+# Example: The Wave Equation
+## Classical Explicit Application
+
+The 1D Wave Equation describes propagation where information travels at a finite speed $c$:
+$$\frac{\partial^2 u}{\partial t^2} = c^2 \frac{\partial^2 u}{\partial x^2}$$
+
+<div class="mt-4 p-4 bg-gray-500/10 rounded">
+
+**Discretization:**
+$$u_j^{n+1} = 2u_j^n - u_j^{n-1} + C^2 (u_{j+1}^n - 2u_j^n + u_{j-1}^n)$$
+where $C = c \frac{\Delta t}{\Delta x}$.
+
+</div>
+
+
+
+---
+layout: default
+---
+
+# Implicit Numerical Methods
+## Coupled computation: $G(u^{n+1}, u^n) = 0$
+
+<div class="grid grid-cols-2 gap-4">
+<div>
+
+### 🟢 Advantages
+* **Unconditional Stability:** Allows much larger time steps $\Delta t$.
+* **Stiff Systems:** The only viable choice for chemical kinetics or heavy diffusion.
+* **Long-Term:** Efficient for long duration simulations.
+
+</div>
+<div v-click>
+
+### 🔴 Disadvantages
+* **Complexity:** Requires solving a system of equations (Matrix Inversion).
+* **Memory:** High; needs to store and solve large matrices.
+* **Non-linear Problems:** Requires iterative solvers (e.g., Newton-Raphson).
+
+</div>
+</div>
+
+---
+
+<RestartOnEnter><HeatBackground /></RestartOnEnter>
+
+# Example: The Heat Equation
+## Implicit Mastery with Crank-Nicolson
+
+Modeling heat conduction in a solid: $\frac{\partial u}{\partial t} = \alpha \frac{\partial^2 u}{\partial x^2}$
+
+The **Crank-Nicolson** scheme is a popular implicit method:
+$$\frac{u_j^{n+1} - u_j^n}{\Delta t} = \frac{\alpha}{2} \left[ \delta_x^2 u_j^{n+1} + \delta_x^2 u_j^n \right]$$
+
+<v-click>
+
+* Results in a **Tridiagonal Matrix** system.
+* **Unconditionally Stable:** You can pick $\Delta t$ based on accuracy, not just to prevent crashes.
+
+</v-click>
+
+
+
+---
+layout: center
+---
+
+# Summary Comparison
+
+| Feature | Explicit | Implicit |
+| :--- | :--- | :--- |
+| **Computation** | Direct (Algebraic) | Iterative/Matrix (System) |
+| **Stability** | Conditional (CFL) | Often Unconditional |
+| **Time Step** | Must be small | Can be large |
+| **Memory** | Low | High |
+| **Best for...** | Wave propagation, acoustics | Diffusion, chemical kinetics, stiffness |
+
+
+
+* **Use Explicit** for high-speed dynamics (Sound, Impact).
+* **Use Implicit** for slow-evolving, diffusion-dominated systems (Heat, Groundwater).
+
 ---
 
 # Runge-Kutta methods
