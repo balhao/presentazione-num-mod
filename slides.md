@@ -4447,8 +4447,129 @@ $$
 </div>
 
 ---
+layout: section
+---
 
-# Heat Equation
+<WireframeShapesBackground />
+
+# The Heat Equation
+An Introduction to Diffusion and Thermal Flux
+
+---
+
+# Physical Motivation
+## What is Heat Diffusion?
+
+The Heat Equation describes how temperature $u(x, t)$ distributes itself in a medium over time. It is based on two fundamental physical principles:
+
+<div class="grid grid-cols-2 gap-10 mt-10">
+<div v-click>
+
+### 1. Fourier's Law
+Heat flux $\vec{q}$ is proportional to the negative gradient of temperature:
+$$\vec{q} = -k \nabla u$$
+*Heat flows from hot to cold.*
+</div>
+
+<div v-click>
+
+### 2. Conservation of Energy
+The change in internal energy in a volume must equal the heat flux through its boundaries:
+$$\rho c_p \frac{\partial u}{\partial t} = -\nabla \cdot \vec{q}$$
+*Energy is not created or destroyed.*
+</div>
+</div>
+
+
+
+---
+
+# The Mathematical Model
+## From Physics to PDE
+
+By combining Fourier's Law and Energy Conservation, we derive the **Parabolic** PDE:
+
+<div v-click="1" class="bg-gray-800/20 border border-red-200/50 rounded-lg px-8 py-6 w-full mt-8 flex justify-between items-center">
+
+<div class="text-sm flex-grow">
+
+<div v-click="2" class="mb-6">
+The Standard Form: &nbsp; <span class="text-2xl">
+
+$$\fbox{$ \frac{\partial u}{\partial t} = D \frac{\partial^2 u}{\partial x^2} $}$$
+
+</span>
+</div>
+
+<div v-click="3">
+
+Where:
+* $u(x, t)$ is the Temperature
+* $t$ is Time
+* $x$ is Space
+* $D$ is the **Thermal Diffusivity** ($D = \frac{k}{\rho c_p}$)
+</div>
+
+</div>
+
+<div v-click="4" class="ml-6 border-l border-gray-700 pl-6 flex-shrink-0">
+  <div class="text-red-400 font-bold text-center">
+
+  $u_t = D u_{xx}$
+  </div>
+  <p class="text-[10px] text-gray-500 mt-2 text-center max-w-40 italic">
+    The second spatial derivative acts as a "smoothing" operator.
+  </p>
+</div>
+
+</div>
+
+---
+
+# Properties of the Heat Equation
+## Qualitative Behavior
+
+The Heat Equation is "Nature's Blur Tool." It has distinct mathematical properties:
+
+<div class="grid grid-cols-2 gap-4 mt-4">
+<div v-click class="border-l-4 border-yellow-500 pl-4 bg-yellow-500/5 p-4">
+
+### 1. Smoothing Effect
+Even if the initial condition $u_0(x)$ is "sharp" (like a box or a spike), for any $t > 0$, the solution becomes **infinitely differentiable** ($C^\infty$).
+</div>
+
+<div v-click class="border-l-4 border-blue-500 pl-4 bg-blue-500/5 p-4">
+
+### 2. Maximum Principle
+The temperature inside the domain will never exceed the maximum temperature of the initial state or the boundaries.
+*No "spontaneous" hot spots.*
+</div>
+</div>
+
+<v-click>
+<div class="mt-8 text-center bg-gray-500/10 p-4 rounded">
+<strong>Infinite Speed of Propagation:</strong> A disturbance at one point is felt (theoretically) everywhere else instantly, though the magnitude decreases exponentially with distance.
+</div>
+</v-click>
+
+---
+
+# Boundary Conditions (BCs)
+## Defining the Environment
+
+To solve the Heat Equation on a finite domain $[0, L]$, we must specify what happens at the ends:
+
+| Type | Name | Physical Meaning |
+| :--- | :--- | :--- |
+| **Dirichlet** | $u(0, t) = T_0$ | Fixed Temperature (e.g., end in ice water) |
+| **Neumann** | $u_x(0, t) = 0$ | Insulated End (no heat flux) |
+| **Robin** | $u_x + \alpha u = g$ | Convection (heat exchange with surroundings) |
+
+
+
+---
+
+# Stability of the Heat Equation
 ## 
 
 Consider the heat equation: $u_t = b^2 u_{xx}$.
@@ -4481,5 +4602,160 @@ $$\fbox{$ \Delta t \le C \Delta x^2 $}$$
 </span>
 
 </div>
+
+
+
+---
+layout: section
+---
+
+<WireframeShapesBackground />
+
+# The Diffusion Equation Solution
+Solving with Fourier Transforms & Dimensional Constants
+
+---
+layout: default
+---
+
+# Introduction: The Diffusion Model
+##
+We consider the one-dimensional diffusion equation with a diffusion coefficient $D > 0$.
+
+<div v-click="1" class="bg-gray-800/20 border border-blue-200/50 rounded-lg px-8 py-6 w-full mt-4 flex justify-between items-center">
+
+<div class="text-sm flex-grow">
+<div class="mb-6">
+The Governing System:
+<span class="text-lg">
+
+$$\begin{cases} u_t = D u_{xx}, & x \in \mathbb{R}, \, t > 0 \\ u(x, 0) = u_0(x), & x \in \mathbb{R} \end{cases}$$
+
+</span>
+</div>
+
+<div v-click="2">
+The solution evolves as a convolution with the **Gaussian Kernel**:
+
+$$\fbox{$ G(x, t) = \frac{1}{\sqrt{4\pi Dt}} e^{-\frac{x^2}{4Dt}} $}$$
+
+</div>
+</div>
+
+<div class="ml-6 border-l border-gray-700 pl-6 flex-shrink-0">
+
+  <p class="text-[10px] text-gray-500 mt-2 text-center max-w-40 italic">
+
+  Spreading and smoothing effects are controlled by the coefficient $D$.
+  </p>
+</div>
+</div>
+
+---
+# Fourier Transform Approach
+## Moving to the Spectral Domain
+
+Applying the Fourier Transform $\hat{u}(k, t) = \int_{-\infty}^\infty u(x, t) e^{-ikx} dx$ to the PDE:
+
+<div class="grid grid-cols-2 gap-8 mt-10">
+<div v-click="1" class="border-2 border-green-500/30 p-4 rounded bg-green-500/5">
+
+### Transformation
+$$\frac{\partial}{\partial t} \hat{u}(k, t) = D(ik)^2 \hat{u}(k, t)$$
+
+$$\frac{\partial}{\partial t} \hat{u}(k, t) = -Dk^2 \hat{u}(k, t)$$
+</div>
+
+<div v-click="2" class="border-2 border-purple-500/30 p-4 rounded bg-purple-500/5">
+
+### Spectral Solution
+This is a first-order ODE for $\hat{u}$:
+
+$$\fbox{$ \hat{u}(k, t) = \hat{u}(k, 0) e^{-Dk^2 t} $}$$
+
+where $\hat{u}(k, 0)$ is the FT of the initial condition.
+</div>
+</div>
+
+---
+
+# General Solution
+## Inverse Transform & Convolution
+
+Returning to the physical domain via the Inverse Fourier Transform:
+
+<div v-click="1" class="mt-4">
+
+Substituting $\hat{u}(k, t)$ into $u(x, t) = \frac{1}{2\pi} \int_{-\infty}^\infty \hat{u}(k, t) e^{ikx} dk$:
+</div>
+
+<div v-click="2" class="my-6 text-center text-xl">
+
+$$\fbox{$ u(x, t) = \frac{1}{\sqrt{4\pi Dt}} \int_{-\infty}^\infty u_0(y) e^{-\frac{(x-y)^2}{4Dt}} \, dy $}$$
+
+</div>
+
+<div v-click="3" class="bg-gray-500/10 p-4 rounded-lg italic">
+
+The solution is a <strong>convolution</strong> of the initial state $u_0(x)$ with the Gaussian kernel. As $t \to \infty$, the initial features are smoothed out.
+</div>
+
+---
+
+# Case 1: Dirac Delta $\delta(x)$
+## The Fundamental Solution
+
+If the initial condition is a concentrated pulse at the origin: $u_0(x) = \delta(x)$.
+
+<div v-click="1" class="mt-8 flex items-center justify-center gap-8">
+  <div class="border-2 border-blue-500 px-6 py-4 rounded bg-blue-500/5 font-mono text-xl">
+
+  $$u(x, t) = \frac{1}{\sqrt{4\pi Dt}} e^{-\frac{x^2}{4Dt}}$$
+  </div>
+
+  <div class="border-l-4 border-gray-500 pl-4 py-1">
+    <span class="text-gray-800 italic !text-xs block mb-1">Key Property:</span>
+    <div class="text-blue-800 text-lg">
+
+  Variance $\sigma^2 = 2Dt$
+
+  </div>
+  </div>
+</div>
+
+<div v-click="2" class="mt-8">
+
+Using the sifting property $\int \delta(y)f(y)dy = f(0)$, the Gaussian kernel <strong>is</strong> the solution for a point source.
+</div>
+
+---
+
+# Case 2: The Box Function
+## Diffusion of a Rectangular Pulse
+
+Consider the initial condition $u_0(x) = U$ for $-L \leq x \leq L$, and $0$ elsewhere.
+
+<div v-click="1" class="mt-4 bg-gray-600/20 border border-yellow-200/50 rounded-lg px-8 py-6 w-full">
+
+Solving the integral $u(x, t) = \frac{U}{\sqrt{4\pi Dt}} \int_{-L}^L e^{-\frac{(x-y)^2}{4Dt}} \, dy$:
+
+<div v-click="2" class="mt-6 text-center text-2xl">
+
+$$\fbox{$ u(x, t) = \frac{U}{2} \left[ \text{erf}\left(\frac{x+L}{\sqrt{4Dt}}\right) - \text{erf}\left(\frac{x-L}{\sqrt{4Dt}}\right) \right] $}$$
+
+</div>
+
+<div v-click="3" class="mt-6 text-xs text-gray-500">
+
+Where the Error Function is defined as: $\text{erf}(z) = \frac{2}{\sqrt{\pi}} \int_0^z e^{-t^2} dt$
+</div>
+</div>
+
+<div v-click="4" class="mt-4 text-center">
+
+<p class="italic text-sm">The corners of the box are immediately rounded as time progresses.</p>
+</div>
+
+
 
 
