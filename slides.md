@@ -2719,7 +2719,9 @@ By defining $\delta^X = \delta^- \cdot \delta^+$, we obtain the second-order cen
   </div>
 </div>
 
+
 ---
+
 
 # Geometric Interpretation
 
@@ -2828,6 +2830,142 @@ Interpolating polynomial $2^\circ$ degree: $D^{(1)} = \delta_0$; $D^{(2)} = \del
 It is possible to achieve the same result by expanding in a <strong>Taylor series</strong> around $(x_j, t_n)$.
 
 </div>
+
+
+---
+layout: section
+---
+
+# The 1D Transport Equation
+The foundation of Advection and Wave Propagation
+
+---
+layout: default
+---
+
+# Introduction
+## What is the Transport Equation?
+
+The 1D Transport (or Advection) equation is a first-order partial differential equation that describes how a scalar quantity $u$ is carried along by a velocity field $a$.
+
+<div class="grid grid-cols-2 gap-10 mt-10">
+<div>
+
+### The Equation
+$$\frac{\partial u}{\partial t} + c \frac{\partial u}{\partial x} = 0$$
+
+* **$u(x, t)$**: The quantity being transported (e.g., concentration, temperature).
+* **$c$**: The constant velocity of propagation.
+</div>
+
+<v-click>
+<div class="border-l-4 border-primary pl-4 bg-gray-500/5 p-4">
+
+### The Physical Meaning
+It represents **pure translation**. The initial profile $u(x, 0)$ moves along the x-axis at speed $c$ without changing its shape.
+</div>
+</v-click>
+</div>
+
+---
+
+<RestartOnEnter><WaveBackground /></RestartOnEnter>
+
+# The Analytical Solution
+## Method of Characteristics
+
+For the initial condition $u(x, 0) = \phi(x)$, the exact solution is:
+
+$$u(x, t) = \phi(x - ct)$$
+
+<div class="grid grid-cols-2 gap-4 mt-6">
+<div v-click>
+
+### Key Observations:
+1. **Constant Information:** The value of $u$ is constant along the characteristic lines $x - ct = \text{constant}$.
+2. **No Diffusion:** Unlike the heat equation, there is no smoothing; sharp edges remain sharp forever.
+</div>
+
+<div v-click>
+
+### Challenges for Numerical Methods:
+* **Numerical Diffusion:** Some methods "smear" the wave.
+* **Numerical Dispersion:** Some methods create artificial oscillations (wiggles).
+</div>
+</div>
+
+
+
+---
+
+# Discretizing the Domain
+## Setting the stage for Numerical Methods
+
+To solve this numerically, we replace the continuous domain with a discrete computational grid:
+
+* **Spatial step ($\Delta x$):** $x_j = j\Delta x$
+* **Time step ($\Delta t$):** $t^n = n\Delta t$
+
+$$u(x_j, t^n) \approx u_j^n$$
+
+<div class="mt-8 flex justify-center">
+  <div class="p-6 border border-gray-500/20 rounded-lg bg-gray-500/5">
+    <p class="text-center font-mono">
+
+  Target: Find a scheme for $u_j^{n+1}$ using values from $u^n$
+    </p>
+  </div>
+</div>
+
+
+
+---
+
+# Preview: The CFL Condition
+## The Limit of Stability
+
+For any explicit numerical method applied to the transport equation, stability is governed by the **Courant-Friedrichs-Lewy (CFL)** condition:
+
+$$\nu = \frac{c \Delta t}{\Delta x} \leq 1$$
+
+<v-clicks>
+
+* **$\nu$**: The Courant number.
+* If $\nu > 1$, the numerical "information" travels slower than the physical wave, leading to total instability (the solution "blows up").
+* **Physical interpretation:** The numerical domain of dependence must contain the physical domain of dependence.
+
+</v-clicks>
+
+
+
+---
+layout: center
+---
+
+# Next Step:
+## Exploring Numerical Schemes
+
+<div class="grid grid-cols-3 gap-4">
+  <div class="p-4 bg-blue-500/10 rounded text-center">
+    <strong>Upwind Scheme</strong><br>
+    <span class="text-xs opacity-70">Stable & Dissipative</span>
+  </div>
+  <div class="p-4 bg-green-500/10 rounded text-center">
+    <strong>Lax-Wendroff</strong><br>
+    <span class="text-xs opacity-70">2nd Order & Dispersive</span>
+  </div>
+  <div class="p-4 bg-purple-500/10 rounded text-center">
+    <strong>Beam-Warming</strong><br>
+    <span class="text-xs opacity-70">Second-order Upwind</span>
+  </div>
+</div>
+
+---
+layout: section
+---
+
+# Numerical Schemes for Advection
+Upwind vs. Lax-Friedrichs
 
 
 ---
@@ -2984,7 +3122,6 @@ The wave propagates forward, and it is useful to use the second one:
 <div v-click="4" class="mt-6 p-4 bg-yellow-600/20 border-l-4 border-yellow-500 text-xs italic text-gray-800">
 Note: The choice of the spatial operator depends on the <strong>direction of information flow</strong> (characteristic direction).
 </div>
-
 
 
 ---
@@ -3193,7 +3330,57 @@ $$\fbox{$ v_j^{n+1} =  v_j^{n} - \frac{1}{2} c \lambda  \left(v_{j+1}^{n+1} - v_
 
 ---
 
-# LAX-WENDROFF (LF)
+# LAX-FRIEDRICHS (LF)
+##
+A central scheme stabilized by replacing the local value with a spatial average.
+
+<div v-click="1" class="bg-gray-800/20 border border-blue-200/50 rounded-lg px-8 py-6 w-full mt-4 flex justify-between items-center">
+
+<div class="text-sm flex-grow">
+
+<div v-click="2" class="mb-6">
+<span class="text-gray-500 mr-2 text-xs"></span>
+Starting from the centered approximation: &nbsp; <span class="text-lg">
+
+$$\fbox{$ v_j^{n+1} = \frac{v_{j+1}^n + v_{j-1}^n}{2} - \frac{c \lambda}{2} (v_{j+1}^n - v_{j-1}^n) $} $$
+
+</span>
+
+<div class="my-4">
+
+$$\frac{1}{k} \left(v_j^{n+1} - \frac{v_{j+1}^n + v_{j-1}^n}{2} \right) = - \frac{c}{2h} \left( v_{j+1}^n - v_{j-1}^n\right) \qquad \text{setting } \lambda = \frac{k}{h}$$
+
+</div>
+</div>
+
+<div v-click="3" class="mb-2">
+<span class="text-gray-500 mr-2 text-xs"></span>
+We obtain the update formula:
+
+<div class="my-4">
+
+$$\fbox{$ v_j^{n+1} = \frac{1}{2}(1 - c\lambda)v_{j+1}^n + \frac{1}{2}(1 + c\lambda)v_{j-1}^n $}$$
+
+</div>
+</div>
+
+</div>
+
+<div v-click="4" class="ml-6 border-l border-gray-700 pl-6 flex-shrink-0">
+
+  <img src="./Figures/LAX_FR.png" class="h-20 rounded shadow-md" alt="Backward Euler Stencil" />
+
+  <p class="text-[10px] text-gray-500 mt-2 text-center max-w-40 italic">
+
+  The update depends on the neighbors at time $n$, skipping the central node $j$.
+  </p>
+</div>
+
+</div>
+
+---
+
+# LAX-WENDROFF (LW)
 ##
 
 It was born as an attempt to stabilize Euler: it adds a $2^\circ$ order term to Euler's formula. \[ some like $u_t = - cu_x + \frac{c^2}{2}u_{xx}$]
@@ -3241,6 +3428,416 @@ $$\fbox{$ v_j^{n+1} =  v_j^{n} - \frac{1}{2} c \lambda  \left(v_{j+1}^{n} - v_{j
 
 </div>
 
+
+---
+
+# BEAM-WARMING (BW)
+##
+A second-order accurate upwind scheme that utilizes a wider stencil to improve precision.
+
+<div v-click="1" class="bg-gray-800/20 border border-orange-200/50 rounded-lg px-8 py-6 w-full mt-4 flex justify-between items-center">
+
+<div class="text-sm flex-grow">
+
+<div v-click="2" class="mb-6">
+<span class="text-gray-500 mr-2 text-xs"></span> Starting from the second-order upwind discretization: &nbsp; <span class="text-lg">
+
+$$\fbox{$ v_j^{n+1} = v_j^n - \nu \delta_- v_j^n + \frac{\nu(\nu-1)}{2} \delta_- \delta_- v_j^n $} $$
+
+</span>
+
+<div class="my-4">
+
+Where $\delta_- v_j^n = v_j^n - v_{j-1}^n$ is the backward difference operator (for $c > 0$) and $\nu = \frac{c \Delta t}{\Delta x}$.
+</div>
+</div>
+
+<div v-click="3" class="mb-2">
+<span class="text-gray-500 mr-2 text-xs"></span>
+We obtain the update formula:
+
+<div class="my-4">
+
+$$\fbox{$ v_j^{n+1} = v_j^n - \frac{\nu}{2}(3v_j^n - 4v_{j-1}^n + v_{j-2}^n) + \frac{\nu^2}{2}(v_j^n - 2v_{j-1}^n + v_{j-2}^n) $}$$
+
+</div>
+</div>
+
+</div>
+
+<div v-click="4" class="ml-6 border-l border-gray-700 pl-6 flex-shrink-0">
+
+  <img src="./Figures/BEAM_WARM.png" class="h-20 rounded shadow-md" alt="Beam-Warming Stencil" />
+
+  <p class="text-[10px] text-gray-500 mt-2 text-center max-w-40 italic">
+    The stencil is fully biased upwind, requiring two points behind the current node.
+  </p>
+</div>
+
+</div>
+
+---
+
+
+# Composition of Operators
+##
+By composing the backward operator $\delta_-$ with itself, we define $(\delta_-)^2$.
+This operator provides the second-order upwind spatial analog used in Beam-Warming:
+
+<div v-click="1" class="bg-gray-800/20 border border-orange-200/50 rounded-lg px-8 py-6 w-full mt-4 flex justify-between items-center">
+
+<div class="text-sm flex-grow">
+
+<div v-click="2" class="mb-6">
+<span class="text-gray-500 mr-2 text-xs"></span>
+Defining the second-order backward difference: &nbsp; <span class="text-lg">
+
+$$\fbox{$ \delta_{--} v_j^n = \frac{1}{h^2} \left(v_j^n - 2v_{j-1}^n + v_{j-2}^n \right) $} $$
+
+</span>
+
+<div class="my-4">
+
+This is a purely upwinded operator, "looking" only at nodes $j, j-1$, and $j-2$.
+</div>
+</div>
+
+<div v-click="3" class="mb-2">
+<span class="text-gray-500 mr-2 text-xs"></span>
+Derivation via operator composition:
+
+<div class="my-4">
+
+$$\delta_- (\delta_- v_j^n) = \frac{1}{h} \left( \frac{v_j^n - v_{j-1}^n}{h} - \frac{v_{j-1}^n - v_{j-2}^n}{h} \right) = \delta_{--} v_j^n$$
+
+</div>
+</div>
+
+</div>
+
+<div v-click="4" class="ml-6 border-l border-gray-700 pl-6 flex-shrink-0">
+
+<div class="text-orange-500 font-mono text-center">
+  (j-2) --- (j-1) --- (j)
+</div>
+
+  <p class="text-[10px] text-gray-500 mt-2 text-center max-w-40 italic">
+
+  Unlike the central operator $\delta_X$, this stencil is asymmetric and biased upstream.
+  </p>
+</div>
+
+</div>
+
+
+---
+
+# The Upwind Scheme
+## Respecting the Physics of Flow ($c > 0$)
+
+The Upwind scheme is the most intuitive approach: if the wind blows from the left, we look to the left to see what's coming.
+
+<div class="grid grid-cols-2 gap-4">
+<div>
+
+### The Formula
+Using a **Forward in Time** and **Backward in Space** (FTBS) discretization:
+
+$$\frac{u_j^{n+1} - u_j^n}{\Delta t} + c \frac{u_j^n - u_{j-1}^n}{\Delta x} = 0$$
+
+Solving for the future:
+$$u_j^{n+1} = u_j^n - \nu (u_j^n - u_{j-1}^n)$$
+where $\nu = \frac{c \Delta t}{\Delta x}$ is the Courant number.
+</div>
+
+<v-click>
+<div class="border-l-4 border-blue-500 pl-4">
+
+### Key Characteristics
+* **First-order accurate** in time and space.
+* **Stable** only if $0 \leq \nu \leq 1$.
+* **Highly Dissipative:** It acts like "Numerical Diffusion," smoothing out sharp gradients and peaks.
+</div>
+</v-click>
+</div>
+
+
+
+---
+
+# The Lax-Friedrichs Scheme
+## Stability through Averaging
+
+Standard central differences are unconditionally unstable for advection. Lax-Friedrichs fixes this by replacing $u_j^n$ with a spatial average.
+
+<div class="grid grid-cols-2 gap-4">
+<div>
+
+### The Modification
+Replace $u_j^n$ with $\frac{1}{2}(u_{j+1}^n + u_{j-1}^n)$:
+
+$$u_j^{n+1} = \frac{1}{2}(u_{j+1}^n + u_{j-1}^n) - \frac{\nu}{2}(u_{j+1}^n - u_{j-1}^n)$$
+
+### The Stencil
+It uses $u_{j-1}$ and $u_{j+1}$, skipping the central point $u_j$ at the current time step.
+</div>
+
+<v-click>
+<div class="border-l-4 border-green-500 pl-4">
+
+### Pros & Cons
+* **Pro:** Stable for $|\nu| \leq 1$ (works for both $c>0$ and $c<0$).
+* **Con:** Extremely dissipative. The "averaging" term introduces massive artificial viscosity, which can ruin accuracy in long simulations.
+</div>
+</v-click>
+</div>
+
+
+
+---
+
+# Visualizing Numerical Diffusion
+## Comparing the Exact vs. Numerical Profile
+
+Numerical methods for transport equations often struggle to preserve the "shape" of the wave.
+
+<div class="grid grid-cols-2 gap-10 mt-6">
+<div>
+
+### What you expect:
+A square wave moving right, keeping its sharp corners ($u_t + cu_x = 0$).
+</div>
+
+<div class="text-red-500 font-bold">
+
+### What Upwind/Lax-F gives:
+The corners round off and the wave spreads out, looking like the **Heat Equation** solution.
+</div>
+</div>
+
+[Image comparing exact solution vs numerical solution with numerical diffusion for advection]
+
+<div class="mt-8 p-4 bg-gray-500/10 rounded-lg italic text-center">
+"Numerical diffusion is the price we pay for first-order stability."
+</div>
+
+---
+layout: center
+---
+
+# Next Step: Higher Order
+## Can we achieve stability without the "Smearing"?
+
+<v-click>
+<h3>Enter: <strong>Lax-Wendroff</strong></h3>
+<p>Second-order accuracy using a Taylor expansion in time.</p>
+</v-click>
+
+
+---
+layout: section
+---
+
+# High-Order Accuracy
+Lax-Wendroff & Von Neumann Stability
+
+---
+
+# The Lax-Wendroff Scheme
+## Second-order precision via Taylor Expansion
+
+To avoid the excessive diffusion of Upwind, we use a second-order Taylor expansion in time:
+$u^{n+1} = u^n + \Delta t u_t + \frac{\Delta t^2}{2} u_{tt}$
+
+<div class="grid grid-cols-2 gap-4 mt-4">
+<div>
+
+### The Strategy
+Using the transport equation $u_t = -cu_x$, we find that $u_{tt} = c^2 u_{xx}$. Substituting these:
+
+$$u_j^{n+1} = u_j^n - \frac{\nu}{2}(u_{j+1}^n - u_{j-1}^n) + \frac{\nu^2}{2}(u_{j+1}^n - 2u_j^n + u_{j-1}^n)$$
+
+</div>
+
+<v-click>
+<div class="border-l-4 border-purple-500 pl-4 bg-purple-500/5 p-4">
+
+### The Result: Dispersion
+* **Pro:** Much less "smearing" (diffusion) than Upwind.
+* **Con:** Introduces **Numerical Dispersion**. Sharp gradients create artificial "wiggles" (oscillations) behind the wave.
+</div>
+</v-click>
+</div>
+
+
+
+---
+
+# Von Neumann Stability Analysis
+## How to prove a method won't blow up
+
+We assume the numerical error can be decomposed into a Fourier series. We test a single mode:
+$u_j^n = G^n e^{i k j \Delta x}$
+
+<div class="grid grid-cols-2 gap-10 mt-6">
+<div>
+
+### The Amplification Factor ($G$)
+After substituting the mode into our scheme, we solve for the ratio:
+$$G = \frac{u^{n+1}}{u^n}$$
+
+**Stability Condition:** The method is stable if and only if:
+$$|G| \leq 1 \quad \forall \text{ wave numbers } k$$
+</div>
+
+<v-click>
+<div class="bg-gray-500/10 p-4 rounded">
+
+### For Advection Schemes:
+* **Upwind:** Stable for $0 \leq \nu \leq 1$.
+* **Lax-Wendroff:** Stable for $|\nu| \leq 1$.
+* **Central Diff:** $|G| > 1$ (Always Unstable!)
+</div>
+</v-click>
+</div>
+
+
+
+
+---
+layout: section
+---
+
+<RestartOnEnter>
+  <SpirographBackground :speed="50" :trailLength="11000" />
+</RestartOnEnter>
+
+# Precision vs. Oscillations
+Why we use 2nd-order schemes and how to fix them.
+
+---
+layout: default
+---
+
+# The Numerical Trade-off
+## Dissipation vs. Dispersion
+
+In numerical methods, we are usually forced to choose between two types of errors:
+
+<div class="grid grid-cols-2 gap-10 mt-4">
+<div v-click>
+
+### 🟠 1st Order (Upwind)
+**Numerical Dissipation**
+* **The "Smear":** Information is lost to artificial diffusion. The wave is smoothed out. Peaks lose height.
+* **Physics:** High-frequency data (sharp edges) "melts" away.
+* **Result:** No wiggles, but the solution vanishes over time.
+* **No oscillations**
+</div>
+
+<div v-click>
+
+### 🔵 2nd Order (Lax-Wendroff)
+**Numerical Dispersion**
+* **The "Wiggle":** Different frequencies travel at different speeds (Phase errors).
+* **Physics:** Energy and peak heights are conserved better. The wave keeps its height.
+* **Result:** High precision, but trailing oscillations appear.
+</div>
+</div>
+
+
+
+---
+
+# Why is 2nd-Order Superior?
+## Even with the Corners issues
+
+If Upwind is so "clean," why bother with Lax-Wendroff?
+
+* **Long-term Accuracy:** 1st-order schemes act as a low-pass filter. Over long distances, your signal will completely disappear.
+* **Grid Efficiency:** To get the same accuracy as a 2nd-order grid of **100 points**, a 1st-order scheme might require **10,000 points**.
+* **Conservation:** 2nd-order schemes maintain the "mass" and "peak" of your pulse much more effectively.
+
+<div class="mt-4 p-4 bg-blue-500/10 border-l-4 border-blue-500 rounded">
+<strong>The Lesser of Two Evils:</strong> Most scientists prefer "wiggles" because they can see the data. When a solution is smeared, you don't know what you've lost.
+</div>
+
+
+
+---
+
+# Godunov’s Theorem
+## The Fundamental Limit
+
+Why can't we have a high-order linear scheme without wiggles?
+
+> **Godunov’s Theorem:**
+> *"Linear numerical schemes for solving advection equations that do not create new under- or overshoots can be at most first-order accurate."*
+
+<v-click>
+
+### The Solution: Non-Linearity
+To get high precision without oscillations, we must use **Non-linear Limiter Schemes**.
+* Near smooth regions: **High Order (2nd)**
+* Near sharp corners: **Low Order (1st)**
+
+</v-click>
+
+---
+
+# TVD & Flux Limiters
+## Total Variation Diminishing
+
+We "blend" the schemes using a **Limiter Function** $\phi(r)$:
+
+$$f_{j+1/2} = f_{Low} + \phi(r) \cdot (f_{High} - f_{Low})$$
+
+<div class="grid grid-cols-2 gap-4 mt-4">
+<div class="bg-gray-800/20 p-4 rounded border border-white/10">
+
+### Common Limiters
+* **Min-Mod:** Conservative/Stable.
+* **Superbee:** Aggressive/Sharp.
+* **van Leer:** Smooth/Balanced.
+</div>
+
+<div v-click>
+
+### The Result
+We achieve **High Resolution** on the plateaus and **Sharp Corners** without the dispersive wiggles. 
+*This is the standard approach in modern CFD solvers.*
+</div>
+</div>
+
+---
+layout: center
+---
+
+# Comprehensive Comparison of Advection Schemes
+
+| Scheme | Order | Stability ($\nu$) | Behavior at "Spigoli" | Main Error | Best Use Case |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Upwind** | 1st | $0 \le \nu \le 1$ | Smears / Melts | Dissipation | Simple tests, robust stability |
+| **Lax-Friedrichs** | 1st | $\nu \le 1$ | Heavy Smearing | Dissipation | General robust 1st-order solver |
+| **Lax-Wendroff** | 2nd | $\nu \le 1$ | Trailing Wiggles | Dispersion | Standard 2nd-order benchmark |
+| **Beam-Warming** | 2nd | $0 \le \nu \le 2$ | Leading Wiggles | Dispersion | Purely directional upwind flows |
+
+
+
+<div class="grid grid-cols-2 gap-4 mt-8">
+<div class="bg-blue-500/10 p-3 rounded border-l-4 border-blue-500">
+<span class="font-bold">Numerical Dissipation (1st Order):</span> 
+Information is lost as the wave "melts." The energy of the signal decreases over time, rounding off all sharp features.
+</div>
+<div class="bg-purple-500/10 p-3 rounded border-l-4 border-purple-500">
+<span class="font-bold">Numerical Dispersion (2nd Order):</span> 
+Information is conserved, but the phase is shifted. Different wavelengths travel at different speeds, causing "wiggles."
+</div>
+</div>
+
+<div class="mt-6 text-center italic text-sm text-gray-400">
+"The choice of scheme is a trade-off between losing information (Diffusion) and distorting information (Dispersion)."
+</div>
 
 ---
 layout: section
