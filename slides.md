@@ -1683,7 +1683,327 @@ For specific choices of coefficients, canonical reference matrices exist.
 </div>
 
 
+---
+layout: section
+---
 
+# Butcher Tableaux
+The DNA of Runge-Kutta Methods
+
+---
+layout: default
+---
+
+# The Anatomy of the Table
+## Systematic representation of coefficients
+
+A **Butcher Tableau** provide a compact way to represent the coefficients of Runge-Kutta (RK) methods:
+
+$$
+\begin{array}{c|c}
+\mathbf{c} & \mathbf{A} \\
+\hline
+& \mathbf{b}^T
+\end{array}
+$$
+
+
+
+<v-click>
+
+* **$\mathbf{A} = [a_{ij}]$**: Matrix of coefficients for intermediate stages.
+* **$\mathbf{c} = [c_i]$**: Nodes (time offsets).
+* **$\mathbf{b} = [b_i]$**: Weights for the final update.
+
+</v-click>
+
+
+
+---
+
+# Explicit vs. Implicit: The Matrix Test
+## Identifying the scheme type at a glance
+
+<div class="grid grid-cols-2 gap-10">
+<div>
+
+### 🔵 Explicit Methods
+**Condition:** $\mathbf{A}$ is **strictly lower triangular**.
+* $a_{ij} = 0$ for all $j \geq i$.
+* Stage $k_i$ depends only on $k_1, \dots, k_{i-1}$.
+* **Result:** Direct evaluation, no iterative solvers needed.
+
+</div>
+<div v-click>
+
+### 🟠 Implicit Methods
+**Condition:** $\mathbf{A}$ has **nonzero entries** on or above the diagonal.
+* $a_{ij} \neq 0$ for some $j \geq i$.
+* Stage $k_i$ depends on itself or future stages.
+* **Result:** Requires solving algebraic equations (e.g., Newton's method).
+
+</div>
+</div>
+
+---
+
+# Comparative Examples
+## Case studies in matrix structure
+
+<div class="grid grid-cols-3 gap-4 text-sm">
+
+<div class="p-2 border border-gray-500/20 rounded">
+<h3>Explicit Euler</h3>
+
+$$
+\begin{array}{c|c}
+0 & \mathbf{0} \\
+\hline
+& 1
+\end{array}
+$$
+
+**Diagnosis:** Strictly lower triangular.
+**Type:** Explicit.
+</div>
+
+<div v-click class="p-2 border border-gray-500/20 rounded">
+<h3>Implicit Euler</h3>
+
+$$
+\begin{array}{c|c}
+1 & \mathbf{1} \\
+\hline
+& 1
+\end{array}
+$$
+
+**Diagnosis:** Nonzero diagonal.
+**Type:** Implicit.
+</div>
+
+<div v-click class="p-2 border border-gray-500/20 rounded">
+<h3>Trapezoidal Rule</h3>
+
+$$
+\begin{array}{c|cc}
+0 & 0 & 0 \\
+1 & 1/2 & \mathbf{1/2} \\
+\hline
+& 1/2 & 1/2
+\end{array}
+$$
+
+**Diagnosis:** Diagonal entry ($a_{22}$) is non-zero.
+**Type:** Implicit.
+</div>
+
+</div>
+
+---
+
+# Deep Dive: The Classical RK4
+## Verifying the structure
+
+Let's examine the standard fourth-order Runge-Kutta matrix $\mathbf{A}$:
+
+$$
+\mathbf{A} =
+\begin{bmatrix}
+0 & 0 & 0 & 0 \\
+1/2 & 0 & 0 & 0 \\
+0 & 1/2 & 0 & 0 \\
+0 & 0 & 1 & 0
+\end{bmatrix}
+$$
+
+<v-clicks>
+
+* **Diagonal check:** All $a_{ii}$ are $0$.
+* **Upper triangle check:** All $a_{ij}$ (where $j > i$) are $0$.
+* **Conclusion:** The matrix is strictly lower triangular.
+* **Final Verdict:** RK4 is an **explicit** method.
+
+</v-clicks>
+
+
+
+---
+
+---
+layout: subsection
+---
+
+# Butcher Tableaux Examples
+
+---
+layout: default
+---
+
+
+# 1. First & Third Order Methods
+## From Euler to Heun
+
+<div class="grid grid-cols-2 gap-4">
+<div>
+
+### Explicit Euler (1st Order)
+$$
+\begin{array}{c|c}
+0 & 0 \\\hline
+  & 1
+\end{array}
+$$
+
+**Formula:**
+$y_{n+1} = y_n + h f(t_n, y_n)$
+</div>
+
+<div v-click>
+
+### Heun's Method (3rd Order)
+$$
+\begin{array}{c|ccc}
+0 & 0 & 0 & 0 \\
+1/3 & 1/3 & 0 & 0 \\
+2/3 & 0 & 2/3 & 0 \\\hline
+  & 1/4 & 0 & 3/4
+\end{array}
+$$
+
+**Formula:**
+$y_{n+1} = y_n + h (\frac{1}{4}k_1 + \frac{3}{4}k_3)$
+</div>
+</div>
+
+---
+
+# 2. Strong Stability Preserving
+## SSPRK3 (3rd Order Explicit)
+
+Often used for hyperbolic PDEs to avoid oscillations.
+
+$$
+\begin{array}{c|ccc}
+0 & 0 & 0 & 0 \\
+1 & 1 & 0 & 0 \\
+1/2 & 1/4 & 1/4 & 0 \\\hline
+  & 1/6 & 1/6 & 2/3
+\end{array}
+$$
+
+<div class="mt-4 p-4 bg-gray-500/10 rounded">
+
+**Why it matters:** SSPRK3 ensures that the solution does not grow in norm, making it ideal for non-linear conservation laws.
+</div>
+
+---
+
+# 3. Fourth-Order Explicit Methods
+## The Gold Standard
+
+<div class="grid grid-cols-2 gap-4">
+<div>
+
+### Classical RK4
+$$
+\begin{array}{c|cccc}
+0 & 0 & 0 & 0 & 0 \\
+1/2 & 1/2 & 0 & 0 & 0 \\
+1/2 & 0 & 1/2 & 0 & 0 \\
+1 & 0 & 0 & 1 & 0 \\\hline
+  & 1/6 & 1/3 & 1/3 & 1/6
+\end{array}
+$$
+The most widely used integrator.
+</div>
+
+<div v-click>
+
+### 3/8-Rule
+$$
+\begin{array}{c|cccc}
+0 & 0 & 0 & 0 & 0 \\
+1/3 & 1/3 & 0 & 0 & 0 \\
+2/3 & -1/3 & 1/3 & 0 & 0 \\
+1 & 1 & -1 & 1 & 0 \\\hline
+  & 1/8 & 3/8 & 3/8 & 1/8
+\end{array}
+$$
+An alternative with different stability properties.
+</div>
+</div>
+
+---
+
+# 4. Implicit Schemes: Lobatto IIIC
+## Stability for Stiff Problems
+
+Unlike explicit methods, the $A$ matrix is dense, requiring a system solver.
+
+$$
+\begin{array}{c|ccc}
+0 & 1/6 & -1/6 & 0 \\
+1/2 & 1/6 & 1/3 & -1/6 \\
+1 & 1/6 & 5/6 & 1/6 \\\hline
+  & 1/6 & 2/3 & 1/6
+\end{array}
+$$
+
+
+
+---
+
+
+# Analyzing an Invalid Table
+## Case Study in Consistency
+
+Consider this provided table:
+$$
+\begin{array}{c|cccc}
+0 & 0 & 0 & 0 & 0 \\
+1/2 & 1/2 & 0 & 0 & 0 \\
+1/2 & 1/2 & 1 & 0 & 0 \\
+1 & 0 & 0 & 1 & 0 \\\hline
+  & 1/2 & 1/3 & 1/3 & 1/2
+\end{array}
+$$
+
+<div class="grid grid-cols-2 gap-4 mt-4">
+<div v-click>
+
+### ❌ Row Sum Violation
+For $c_3 = 1/2$:
+$1/2 + 1 = 3/2 \neq 1/2$
+**Result:** Violation of consistency.
+</div>
+
+<div v-click>
+
+### ❌ Weight Violation
+$\sum b_i = 1/2 + 1/3 + 1/3 + 1/2 = \mathbf{5/3}$
+**Requirement:** $\sum b_i = 1$
+**Result:** Incorrect total step size.
+</div>
+</div>
+
+---
+
+# Conclusion: Why Validity Matters
+
+A Butcher table is **invalid** if it fails consistency and order conditions.
+
+<v-clicks>
+
+* **Non-Convergence:** If $\sum b_i \neq 1$, the error does not vanish as $h \to 0$.
+* **Stability:** Inconsistent $c_i$ values lead to unphysical phase shifts.
+* **Accuracy:** Higher-order terms will accumulate, causing the solution to diverge rapidly.
+
+</v-clicks>
+
+<div class="mt-10 p-4 border-l-4 border-red-500 bg-red-500/10">
+<strong>Takeaway:</strong> Always verify row sums and weight sums before implementing a custom tableau.
+</div>
 
 ---
 
