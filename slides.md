@@ -74,9 +74,17 @@ Here is another comment.
 <span class="font-bold mr-2">1.</span> Introduction and Discretization
 </div>
 
+<div class="px-4 py-2 rounded-lg bg-blue-50 border border-blue-200 text-blue-900">
+<span class="font-bold mr-2">1.</span> Explicit and Implicit Methods
+</div>
+
 
 <div class="px-4 py-2 rounded-lg bg-blue-50 border border-blue-200 text-blue-900">
 <span class="font-bold mr-2">2.</span> Runge-Kutta Methods
+</div>
+
+<div class="px-4 py-2 rounded-lg bg-blue-50 border border-blue-200 text-blue-900">
+<span class="font-bold mr-2">2.</span> The Butcher Tableaux
 </div>
 
 <div class="px-4 py-2 rounded-lg bg-blue-50 border border-blue-200 text-blue-900">
@@ -2356,9 +2364,25 @@ Integrating between $t_n$ and $t_{n+1}$ yields:
 
 
 
+---
+layout: section
+---
+
+<RestartOnEnter>
+  <LorenzBackground :speed="50" :trailLength="11000" />
+</RestartOnEnter>
+
+<div class="flex flex-col h-full justify-center items-center text-black">
+
+# Backward Differentiation Methods
+
+</div>
 
 
 ---
+layout: default
+---
+
 
 # Backward Differentiation
 ##
