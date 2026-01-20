@@ -294,8 +294,25 @@ Go beyond the numbers: Solve problems, understand the world, and build the futur
 </div>
 
 
+---
+layout: section
+---
+
+<RestartOnEnter>
+  <LorenzBackground :speed="50" :trailLength="11000" />
+</RestartOnEnter>
+
+<div class="flex flex-col h-full justify-center items-center text-black">
+
+# Discretization
+
+</div>
+
 
 ---
+layout: default
+---
+
 
 # Differential Equations
 ##
@@ -914,6 +931,11 @@ $$ 1 + k + \frac{k^2}{2} + \dots + \frac{k^m}{m!} $$
 layout: section
 ---
 
+<RestartOnEnter>
+  <LorenzBackground :speed="50" :trailLength="11000" />
+</RestartOnEnter>
+
+
 # Explicit vs. Implicit Methods
 Advantages, Disadvantages, and Applications
 
@@ -921,9 +943,8 @@ Advantages, Disadvantages, and Applications
 layout: default
 ---
 
-# Introduction
-## Choosing the right numerical approach
-
+# Choosing the right numerical approach
+##
 The choice between **Explicit** and **Implicit** schemes depends on the specific nature of the physical problem.
 
 <div class="grid grid-cols-2 gap-10 mt-10">
@@ -1054,7 +1075,27 @@ layout: center
 * **Use Explicit** for high-speed dynamics (Sound, Impact).
 * **Use Implicit** for slow-evolving, diffusion-dominated systems (Heat, Groundwater).
 
+
 ---
+layout: section
+---
+
+<RestartOnEnter>
+  <LorenzBackground :speed="50" :trailLength="11000" />
+</RestartOnEnter>
+
+<div class="flex flex-col h-full justify-center items-center text-black">
+
+# Runge-Kutta methods
+
+</div>
+
+
+---
+layout: default
+---
+
+
 
 # Runge-Kutta methods
 ##
@@ -1687,6 +1728,10 @@ For specific choices of coefficients, canonical reference matrices exist.
 layout: section
 ---
 
+<RestartOnEnter>
+  <LorenzBackground :speed="50" :trailLength="11000" />
+</RestartOnEnter>
+
 # Butcher Tableaux
 The DNA of Runge-Kutta Methods
 
@@ -1827,12 +1872,16 @@ $$
 </v-clicks>
 
 
-
----
-
 ---
 layout: subsection
 ---
+
+
+<RestartOnEnter>
+  <MorphingShape :speed="50" :trailLength="11000" />
+</RestartOnEnter>
+
+
 
 # Butcher Tableaux Examples
 
@@ -2005,7 +2054,26 @@ A Butcher table is **invalid** if it fails consistency and order conditions.
 <strong>Takeaway:</strong> Always verify row sums and weight sums before implementing a custom tableau.
 </div>
 
+
 ---
+layout: section
+---
+
+<RestartOnEnter>
+  <LorenzBackground :speed="50" :trailLength="11000" />
+</RestartOnEnter>
+
+<div class="flex flex-col h-full justify-center items-center text-black">
+
+# Linear Multistep Methods
+
+</div>
+
+
+---
+layout: default
+---
+
 
 # Linear Multistep
 ##
@@ -2479,6 +2547,23 @@ Evaluating the derivative $\dot{q}_{BD}(t)$ at different time levels:
 </ul>
 
 
+---
+layout: section
+---
+
+<RestartOnEnter>
+  <LorenzBackground :speed="50" :trailLength="11000" />
+</RestartOnEnter>
+
+<div class="flex flex-col h-full justify-center items-center text-black">
+
+# Spatial-temporal discretization
+
+</div>
+
+
+---
+layout: default
 ---
 
 # Spatial-temporal discretization
@@ -3134,8 +3219,26 @@ $$\fbox{$ v_j^{n+1} =  v_j^{n} - \frac{1}{2} c \lambda  \left(v_{j+1}^{n} - v_{j
 
 
 ---
+layout: section
+---
+
+<RestartOnEnter>
+  <LorenzBackground :speed="50" :trailLength="11000" />
+</RestartOnEnter>
+
+<div class="flex flex-col h-full justify-center items-center text-black">
 
 # Stability of the Solution
+
+</div>
+
+
+---
+layout: default
+---
+
+
+# Stability of the solution
 ## 
 We study the stability of discrete solutions for the transport equation:
 
@@ -3456,6 +3559,23 @@ Summary of stability conditions for the 1D transport equation:
 Note: Unconditionally stable schemes allow for larger time steps, but they may introduce significant numerical dissipation.
 </div>
 
+---
+layout: section
+---
+
+<RestartOnEnter>
+  <LorenzBackground :speed="50" :trailLength="11000" />
+</RestartOnEnter>
+
+<div class="flex flex-col h-full justify-center items-center text-black">
+
+# CFL Condition
+
+</div>
+
+
+---
+layout: default
 ---
 
 # CFL Condition: Characteristics
