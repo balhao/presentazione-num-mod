@@ -2079,7 +2079,7 @@ $$ \int_{t_n}^{t_{n+1}} u_t \, dt = \int_{t_n}^{t_{n+1}} f(u, t) \, dt $$
 Let $q(t)$ be a polynomial that interpolates $f$ within $[t_n, t_{n+1}]$.  
 Then:
 
-$$ u(t_{n+1}) - u(t_n) = \int_{t_n}^{t_{n+1}} q(t)\, dt $$
+$$ u(t_{n+1}) - u(t_n) = \int_{t_n}^{t_{n+1}} f(t)\, dt $$
 
 </div>
 
