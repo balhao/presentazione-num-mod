@@ -2846,7 +2846,7 @@ layout: default
 # Introduction
 ## What is the Transport Equation?
 
-The 1D Transport (or Advection) equation is a first-order partial differential equation that describes how a scalar quantity $u$ is carried along by a velocity field $a$.
+The 1D Transport (or Advection) equation is a first-order partial differential equation that describes how a scalar quantity $u$ is carried along by a velocity field $c$.
 
 <div class="grid grid-cols-2 gap-10 mt-10">
 <div>
@@ -2982,7 +2982,7 @@ Let's start from the transport equation: $u_t + c u_x = 0$.
 <span class="text-gray-500 mr-2 text-xs"></span>
 Starting from: &nbsp; <span class="text-lg">
 
-$$\fbox{$ \delta^+ v_j^n = -c \delta^+ v_j^n $} $$
+$$\fbox{$ \delta^+ v_j^n = -c \delta_+ v_j^n $} $$
 
 </span>
 
@@ -3033,7 +3033,7 @@ Starting from the transport equation: $u_t + c u_x = 0$.
 <span class="text-gray-500 mr-2 text-xs"></span>
 Starting from: &nbsp; <span class="text-lg">
 
-$$\fbox{$ \delta^+ v_j^n = - c \delta^- v_j^n $} $$
+$$\fbox{$ \delta^+ v_j^n = - c \delta_- v_j^n $} $$
 
 </span>
 
