@@ -3071,56 +3071,97 @@ $$\fbox{$ v_j^{n+1} = v_j^n - c \lambda \left( v_{j}^n - v_{j-1}^n\right) $}$$
 
 ---
 
-# UP-WIND Choice
-##
-But how can I choose between the previous formulas?
+# The Upwind Choice: Directionality & Stability
+## Why $c > 0$ and $c < 0$ require different formulas
 
-<div v-click="1" >
+<div v-click>
 
-<div class="text-sm">
+### 1. The Physics of Information Flow
+The choice of spatial operator is not arbitrary; it must follow the **direction of information flow** (the characteristic direction). Always discretize the solution using values coming from the direction the information comes from (upwind).
 
-<div v-click="2" >
-<div class="flex items-center gap-4 mb-2">
-  <div class="bg-blue-200 text-black px-2 py-0.5 rounded font-bold text-xs">CASE 1</div>
-  <span class="text-blue-800 font-bold"> 
-    
-  If $c > 0$:
+</div>
+
+<div class="grid grid-cols-2 gap-4 mt-4">
+
+<div v-click="1" class="p-4 bg-blue-100 border-l-4 border-blue-500 w-100 h-60 rounded">
+<div class="flex items-center gap-2 mb-2">
+  <div class="bg-blue-600 text-white px-2 py-0.5 rounded font-bold text-xs">CASE 1</div>
+  <span class="text-blue-800 font-bold">
+
+  If $c > 0$
 
   </span>
 </div>
-The wave propagates backward, and it is useful to use the first formula:
-<div class="mt-4 text-center">
 
-  $$\delta^+ v_j^n = c \delta_+ v_j^n$$
+The wave propagates **Forward** (to the right). Information comes from the **Left**.
 
+**Correct Operator:** Backward Difference ($\delta_-$)
+$$\delta^+ v_j^n = c \delta_- v_j^n$$
 </div>
-</div>
 
-<div v-click="3">
-<div class="flex items-center gap-4 mb-2">
-  <div class="bg-green-200 text-black px-2 py-0.5 rounded font-bold text-xs">CASE 2</div>
+<div v-click="2" class="p-4 bg-green-100 border-l-4 border-green-500 w-100 h-60 rounded">
+<div class="flex items-center gap-2 mb-2">
+  <div class="bg-green-600 text-white px-2 py-0.5 rounded font-bold text-xs">CASE 2</div>
   <span class="text-green-800 font-bold">
 
-  If $c < 0$:
+  If $c < 0$
 
   </span>
 </div>
-The wave propagates forward, and it is useful to use the second one:
-<div class="mt-4 text-center">
 
-  $$\delta^+ v_j^n = c \delta_- v_j^n$$
+The wave propagates **Backward** (to the left). Information comes from the **Right**.
 
-</div>
-</div>
-
+**Correct Operator:** Forward Difference ($\delta_+$)
+$$\delta^+ v_j^n = c \delta_+ v_j^n$$
 </div>
 
 </div>
 
+---
+
+# Why are they different?
+## Numerically vs. Physically
+
+<div class="grid grid-cols-2 gap-10 text-sm">
+
+<div>
+
+<div v-click="1">
+
+### 1. Domain of Dependence
+For a scheme to be stable, the **numerical stencil** must contain the **physical characteristic line**.
+* If $c > 0$, using a forward point ($j+1$) means trying to predict the future using a point the wave hasn't reached yet. 
+* This leads to unphysical feedback and exponential error growth.
 
 
-<div v-click="4" class="mt-6 p-4 bg-yellow-600/20 border-l-4 border-yellow-500 text-xs italic text-gray-800">
-Note: The choice of the spatial operator depends on the <strong>direction of information flow</strong> (characteristic direction).
+
+</div>
+
+</div>
+
+<div>
+
+<div v-click="2">
+
+### 2. Modified Equation Analysis
+When we expand these formulas via Taylor Series, we find they solve different "modified" equations:
+* **Upwind:** Adds a positive **numerical diffusion** term (stabilizing effect).
+* **Downwind:** Adds a negative diffusion term, which actively amplifies noise until the simulation crashes.
+
+</div>
+
+<div v-click="3" class="mt-4">
+
+### 3. Boundary Constraints
+* **Inflow:** Must look "out" toward the boundary to import data.
+* **Outflow:** At the last grid point, $j+1$ physically doesn't exist; you are forced to use the backward (Upwind) operator.
+
+
+
+</div>
+
+</div>
+
 </div>
 
 
